@@ -28,8 +28,8 @@ class WelcomeScreen extends React.Component {
     render() {
         return (
             <ScroolView 
-              horizontal
-              pagingEnabled
+              horizontal={true}
+              pagingEnabled={true}
               style={{ flex: 1 }}
             >
                 {this.renderSlides()}

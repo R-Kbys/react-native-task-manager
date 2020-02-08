@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
-import WelcomeScreen from "./screens/WelcomeScreen.1";
+// import Constants from 'expo-constants';
+import WelcomeScreen from "./screens/WelcomeScreen";
 
 export default class App extends React.Component {
   render() {
