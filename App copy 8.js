@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { TextInput, ScrollView, StyleSheet, FlatList, Button, Text, View, TouchableHighlight, SafeAreaView } from 'react-native';
+import { Modal, TextInput, ScrollView, StyleSheet, FlatList, Button, Text, View, TouchableHighlight, SafeAreaView } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { UserInputModal } from './UserInputModal';
 // import { ModalInput } from './ModalInput';
 
 class FirstScreen extends Component {
@@ -21,10 +20,10 @@ class FirstScreen extends Component {
       taskNumber: 1,
       targetIsDone: false,
       modal: true,
-      secondModal: false,
+      secondModal:false,
       explanation: 'ジオいおっj',
       textDecision: '',
-      inputModal: false,
+
     }
   };
 
@@ -52,41 +51,83 @@ class FirstScreen extends Component {
             {/* <Button title="短期目標を決める" onPress={} /> */}
             {/*  後々に実装したい=> ボタンを押すと，新しい入力部分が出てくる，任意の数を箇条書き入力できるようにする */}
           </View>
-
-          <View style={{ flex: 1 }}>
-            <Text>意思決定</Text>
-            <Text>{this.state.textDecision}</Text>
-        
-            <UserInputModal
-              visible={this.state.inputModal}
-              explanation={this.state.explanation}
-              onoff={this.onoff}
-              userValue={this.state.textDecision}
-              onChangeText={this.doType}
-            />
-          </View>
-
+          <View>
             {/* <ModalInput
                 placeholder="今実行すべきもっとも優先順位の高いタスク"
                 stage="Decide 意思決定" /> */}
-            <Button title="る" onPress={this.onoff} />
-          
-
-         
+            <Modal
+              visible={this.state.modal}
+              transparent={true}
+              animationType="fade">
+              <View style={styles.modalbase}>
+                <View style={styles.modalpanel}>
+                  <Text style={styles.message}>中期目標1をなすための短期のタスクを決めましょう</Text>
+                  <Text style={styles.message}>タスク{this.state.taskNumber}:</Text>
+                  <TextInput
+                    placeholder="タスク1"
+                    value={this.state.text}
+                    onChangeText={this.doType}
+                    style={styles.message} />
+                  <Button title="閉じる" onPress={this.NextModal} />
+                  <Button title="タスクの開始" onPress={this.nextPage} />
+                  {/* ボタンを押すと，新しい入力部分が出てくる，任意の数のタスクを入力できるようにする */}
+                </View>
+              </View>
+            </Modal>
+            <Modal
+              visible={this.state.secondModal}
+              transparent={true}
+              animationType="fade">
+              <View style={styles.modalbase}>
+                <View style={styles.modalpanel}>
+                  <Text style={styles.message}>中期目標1をなすための短期のタスクを決めましょう</Text>
+                  <Text style={styles.message}>タス{this.state.taskNumber}:</Text>
+                  <TextInput
+                    placeholder="タスク2"
+                    value={this.state.text}
+                    onChangeText={this.doType}
+                    style={styles.message} />
+                  <Button title="閉じる" onPress={this.modalSwitch} />
+                  <Button title="タスクの開始" onPress={this.nextPage} />
+                  {/* ボタンを押すと，新しい入力部分が出てくる，任意の数のタスクを入力できるようにする */}
+                </View>
+              </View>
+            </Modal>
+            <Button title="短期目標を決める" onPress={() => this.setState({ modal: !this.state.modal})} />
+          </View>
+          <Button title="Next Screen" onPress={this.nextPage} />
+          <UserInputModal explanation={this.state.explanation} />
         </View>
-
-        <Button title="短期目標を決める" onPress={() => this.setState({ modal: !this.state.modal })} />
-        <Button title="Next Screen" onPress={this.nextPage} />
-
       </View>
     );
   }
 
-  modalSwitch = () => this.setState({ secondModal: !this.state.secondModal, })
-  onoff = () => this.setState({ inputModal: !this.state.inputModal })
+  modalSwitch = () => this.setState({ secondModal: !this.state.secondModal ,})
   NextModal = () => this.setState({ modal: !this.state.modal, secondModal: !this.state.secondModal })
   nextPage = () => this.props.navigation.navigate('Next');
-  doType = textDecision => this.setState({ textDecision });
+  doType = text => this.setState({ text });
+}
+
+function UserInputModal(props) {
+  return(
+  <Modal
+    visible={true}
+    transparent={false}
+    animationType="fade">
+    <View style={styles.modalbase}>
+      <View style={styles.modalpanel}>
+        <Text style={styles.message}>{props.explanation}中期目標1をなすための短期のタスクを決めましょう</Text>
+        <TextInput
+          placeholder="タスク1"
+          value=''
+          style={styles.message} />
+        {/* <Button title="閉じる" onPress={this.modalSwitch} />
+        <Button title="タスクの開始" onPress={this.nextPage} /> */}
+        {/* ボタンを押すと，新しい入力部分が出てくる，任意の数のタスクを入力できるようにする */}
+      </View>
+    </View>
+  </Modal>
+  );
 }
 
 const DATA = [{
@@ -116,46 +157,46 @@ class SecondScreen extends Component {
   render() {
     return (
       <View style={styles.base}>
-        <View style={{ padding: 10 }}>
-          <Button title="Go back " onPress={this.doAction1} />
-          <Button title="Next Screen" onPress={this.doAction2} />
-        </View>
-        <View style={{ flex: 1, backgroundColor: 'darkblue' }}>
-          <Text style={styles.title}>{}</Text>
-        </View>
-        <SafeAreaView style={styles.container}>
-          <FlatList
-            data={DATA}
-            renderItem={({ item }) => <Item title={item.title} />}
-            keyExtractor={item => item.id}
-          />
-        </SafeAreaView>
-        <ScrollView>
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-        </ScrollView>
+          <View style={{ padding: 10 }}>
+            <Button title="Go back " onPress={this.doAction1} />
+            <Button title="Next Screen" onPress={this.doAction2} />
+          </View>
+          <View style={{ flex: 1, backgroundColor: 'darkblue' }}>
+            <Text style={styles.title}>{}</Text>
+          </View>
+          <SafeAreaView style={styles.container}>
+            <FlatList
+              data={DATA}
+              renderItem={({ item }) => <Item title={item.title} />}
+              keyExtractor={item => item.id}
+            />
+          </SafeAreaView>
+          <ScrollView>
+            <TextInput
+              placeholder="タスク1"
+              value={this.state.text}
+              onChangeText={this.doType}
+              style={styles.message} 
+              multiline={true}/>
+            <TextInput
+              placeholder="タスク1"
+              value={this.state.text}
+              onChangeText={this.doType}
+              style={styles.message} 
+              multiline={true}/>
+            <TextInput
+              placeholder="タスク1"
+              value={this.state.text}
+              onChangeText={this.doType}
+              style={styles.message} 
+              multiline={true}/>
+              <TextInput
+              placeholder="タスク1"
+              value={this.state.text}
+              onChangeText={this.doType}
+              style={styles.message}
+              multiline={true} />
+          </ScrollView>
       </View>
     );
   }
@@ -232,7 +273,7 @@ export default class App extends React.Component {
   }
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   base: { padding: 0, flex: 1, },
   body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
   main: { padding: 10, flex: 2, backgroundColor: 'white', },
