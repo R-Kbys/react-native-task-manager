@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import { Modal, TextInput, StyleSheet, Button, Text, View} from 'react-native';
 
 
-export class ModalInput extends React {
+export class PromptUserInput extends React {
     modalSwitch = () => this.setState({ modal: !this.state.modal })
 
     render() {
@@ -13,13 +13,8 @@ export class ModalInput extends React {
                 animationType="fade">
                 <View style={styles.modalbase}>
                     <View style={styles.modalpanel}>
-                        <Text style={styles.message}>{this.props.target}目標をなすための{this.subTarget}期のタスクを決めましょう</Text>
-                        <Text style={styles.message}>タスク{this.state.taskCount}:</Text>
-                        <TextInput
-                            placeholder="タスク1"
-                            value={this.state.text}
-                            onChangeText={this.doType}
-                            style={styles.message} />
+                        <Text style={styles.message}>{this.props.target}</Text>
+                        
                         <Button title="閉じる" onPress={this.modalSwitch} />
                     </View>
                 </View>

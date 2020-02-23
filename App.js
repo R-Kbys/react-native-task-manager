@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { TextInput, ScrollView, StyleSheet, FlatList, Button, Text, View, TouchableHighlight, SafeAreaView } from 'react-native';
+import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TextInputComponent } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { UserInputModal } from './UserInputModal';
+import { TextContainer } from './TextContainer';
 // import { ModalInput } from './ModalInput';
+
+
 
 class FirstScreen extends Component {
   static navigationOptions = {
@@ -15,20 +18,31 @@ class FirstScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: 'First Screen',
       text: '',
+      targetIsDone: false,
       targetNumber: 1,
       taskNumber: 1,
-      targetIsDone: false,
-      modal: true,
-      secondModal: false,
-      explanation: 'ジオいおっj',
+      isVisibleGoalModal: false,
+      isVisibleSituationModal: false,
+      isVisibleDecisionModal: false,
+      isVisibleAnarisisModal: false,
+      isVisibleAquiredModal: false,
+      isVisibleReflectionModal: false,
+      isInitialised: false,
+      textGoal: '',
+      textSituation: '',
+      textAnarisis: '',
       textDecision: '',
-      inputModal: false,
+      textAquired: '',
+      textReflection: '',
+
     }
   };
 
+
   render() {
+    //   const openModalId = this.state.openModalId;
+    //   const isVisible = (openModalId == id) ? false : true;
     return (
       <View style={styles.base}>
 
@@ -41,52 +55,78 @@ class FirstScreen extends Component {
 
           <View style={{ flex: 1 }}>
             <Text>現状の観察</Text>
-            {/* ボタンを押すとモーダルが出てきてユーザに入力を促す・ModalInputかmodalを使用 */}
-            {/* <Button title="短期目標を決める" onPress={} /> */}
-            {/*  後々に実装したい=> ボタンを押すと，新しい入力部分が出てくる，任意の数を箇条書き入力できるようにする */}
           </View>
 
-          <View style={{ flex: 1 }}>
-            <Text>現状の観察からからの分析・判断・方針</Text>
-            {/* ボタンを押すとモーダルが出てきてユーザに入力を促す・ModalInputかmodalを使用 */}
-            {/* <Button title="短期目標を決める" onPress={} /> */}
-            {/*  後々に実装したい=> ボタンを押すと，新しい入力部分が出てくる，任意の数を箇条書き入力できるようにする */}
-          </View>
+          {/* <View style={{ flex: 1 }}>
+            <Text>現状の観察からの分析・判断・方針</Text>
+            <Text>{this.state.textAnarisis}</Text>
+            <UserInputModal
+              visible={this.state.isVisibleAnarisisModal}
+              explanation='現状の観察からの分析を定しましょう！'
+              setVisibleModal={this.setVisibleAnarisisModal}
+              userValue={this.state.textAnarisis}
+              onChangeText={this.typeAnarisis}
+            />
+          </View> */}
+          <TextContainer
+            concept='現状の観察からの分析・判断・方針'
+            visible={this.state.isVisibleAnarisisModal}
+            explanation='現状の観察からの分析を定しましょう！'
+            setVisibleModal={this.setVisibleAnarisisModal}
+            textInput={this.state.textAnarisis}
+            onChangeText={this.typeAnarisis}
+          />
+
 
           <View style={{ flex: 1 }}>
             <Text>意思決定</Text>
             <Text>{this.state.textDecision}</Text>
-        
             <UserInputModal
-              visible={this.state.inputModal}
-              explanation={this.state.explanation}
-              onoff={this.onoff}
+              visible={this.state.isVisibleDecisionModal}
+              explanation='分析に基づいて今やるべきことを決定しましょう！'
+              setVisibleModal={this.setVisibleDecisionModal}
               userValue={this.state.textDecision}
-              onChangeText={this.doType}
+              onChangeText={this.typeDecision}
             />
           </View>
 
-            {/* <ModalInput
-                placeholder="今実行すべきもっとも優先順位の高いタスク"
-                stage="Decide 意思決定" /> */}
-            <Button title="る" onPress={this.onoff} />
-          
-
-         
+          <Button title="る" onPress={this.setVisibleAnarisisModal} />
+          <Button title="2e" onPress={this.setVisibleDecisionModal} />
         </View>
 
-        <Button title="短期目標を決める" onPress={() => this.setState({ modal: !this.state.modal })} />
         <Button title="Next Screen" onPress={this.nextPage} />
 
       </View>
     );
   }
 
-  modalSwitch = () => this.setState({ secondModal: !this.state.secondModal, })
-  onoff = () => this.setState({ inputModal: !this.state.inputModal })
+  setGoalModal = () => this.setState({ isVisibleGoalModal: !this.state.isVisibleGoalModal })
+
+  setVisiSituationModal = () => this.setState({ isVisibleSituationModal: !this.state.isVisibleSituationModal })
+
+  setVisibleAnarisisModal = () => this.setState({ isVisibleAnarisisModal: !this.state.isVisibleAnarisisModal })
+
+  setVisibleDecisionModal = () => this.setState({ isVisibleDecisionModal: !this.state.isVisibleDecisionModal })
+
+  setVisibleReflectionModal = () => this.setState({ isVisibleReflectionModal: !this.state.isVisibleReflectionModal })
+
+  setVisibleModal = () => {
+    setModalIsOpen = this.state.whichModalIsOpen;
+    setModalIsOpen[id] = !setModalIsOpen[id];
+    this.setState({ whichModalIsOpen: setModalIsOpen })
+  }
+
   NextModal = () => this.setState({ modal: !this.state.modal, secondModal: !this.state.secondModal })
   nextPage = () => this.props.navigation.navigate('Next');
-  doType = textDecision => this.setState({ textDecision });
+  typeGoal = textGoal => this.setState({ textGoal });
+  typeSituation = textSituation => this.setState({ textSituation });
+  typeAnarisis = textAnarisis => this.setState({ textAnarisis });
+  typeDecision = textDecision => this.setState({ textDecision });
+  typeReflection = textReflection => this.setState({ textReflection });
+  // typeAnarisis = (text) => {
+  //   this.setState(() => { return { text } })
+  // };
+
 }
 
 const DATA = [{

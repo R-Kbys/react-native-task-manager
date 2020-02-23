@@ -6,7 +6,7 @@ export class ModalInput extends Component {
     modalSwitch = () => this.setState({ modal: !this.state.modal })
 
     render() {
-        return (
+        return (    
             <Modal
                 visible={this.state.modal}
                 transparent={true}

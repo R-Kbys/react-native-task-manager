@@ -1,33 +1,35 @@
 import React, { Component } from 'react';
-import { Modal, TextInput, Text, View, Button,StyleSheet } from 'react-native';
+import { Modal, TextInput, Text, View, Button, StyleSheet } from 'react-native';
+import { UserInputModal } from './UserInputModal';
 
-export function UserInputModal(props) {
-    // functionコンポーネントとクラスコンポーネントはstateをモテる以外で何が異なるしよう
-
-        const modalId = props.modalId;
-
-        return (
-            <Modal
+export function TextContainer(props) {
+// Modalのvisibleのステートはこの関数コンポーネントの親コンポーネントで管理しているが，
+// このコンポーネントで管理しても良いのではないか，その場合はクラスコンポーネントにする
+// どちらが良いのか．そっちの方がいい説ある
+    return (
+        <View style={{ flex: 1 }}>
+            <View flexDirection='row'>
+                <Text>{props.concept}</Text>
+                <Button title="編集" onPress={props.setVisibleModal} />
+            </View>
+            <Text>{props.textInput}</Text>
+            <UserInputModal
                 visible={props.visible}
-                transparent={false}
-                animationType="fade">
-                <View style={styles.modalbase}>
-                    <View style={styles.modalpanel}>
-                        <Text style={styles.message}>{props.explanation}</Text>
-                        <TextInput
-                            placeholder="タスク1"
-                            value={props.textInput}
-                            onChangeText={props.onChangeText}
-                            style={styles.message}
-                            // multiline={true} 
-                            />
-                    </View>
-                    <Button title="閉じる" onPress={props.setVisibleModal} />
+                explanation={props.explanation}
+                setVisibleModal={props.setVisibleModal}
+                textInput={props.textInput}
+                onChangeText={props.onChangeText}
+            />
+        </View>
+    );
+}
 
-                </View>
-            </Modal>
-        );
-    }
+// setVisibleModal = () => {
+//     setModalIsOpen = this.state.ModalIsOpen;
+//     setModalIsOpen[id] = !setModalIsOpen[id];
+//     this.setState({ ModalIsOpen: setModalIsOpen })
+// }
+// setVisibleReflectionModal = () => this.setState({ isVisible: !this.state.isVisible })
 
 
 export const styles = StyleSheet.create({
