@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TextInputComponent } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { UserInputModal } from './UserInputModal';
 import { TextContainer } from './TextContainer';
 // import { ModalInput } from './ModalInput';
 

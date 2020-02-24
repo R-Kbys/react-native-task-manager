@@ -21,8 +21,8 @@ export class TextContainer extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <View flexDirection='row'>
-                    <Text style={styles.message}>{this.props.concept}</Text>
-                    <Button style={styles.message} title="編集" onPress={this.setVisibleModal} />
+                    <Text>{this.props.concept}</Text>
+                    <Button title="編集" onPress={this.setVisibleModal} />
                 </View>
                 <Text>{this.state.textValue}</Text>
                 <UserInputModal
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     message: {
         padding: 10,
         color: 'black',
-        fontSize: 16,
+        fontSize: 20,
         textAlign: 'center',
         // height: 40,
     },
