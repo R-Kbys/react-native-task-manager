@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { Modal, TextInput, Text, View, Button, StyleSheet } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Container, Header, Content, Text, Button } from 'native-base';
+import { Modal, TextInput, Text, View, Button, StyleSheet } from 'react-native';
 import { UserInputModal } from './UserInputModal';
 
 export class TextContainer extends Component {
@@ -11,7 +9,7 @@ export class TextContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            textValue: '● ¥n ● ',
+            textValue: '●　　●',
             visible: false,
         }
     };
@@ -21,18 +19,12 @@ export class TextContainer extends Component {
 
     render() {
         return (
-            <Content >
-                <Content contentContainerStyle={{ flexDirection:'row', flex: 1 }}>
-                    <Text style={styles.message}>{this.props.concept} </Text>
-                    <Button rounded info onPress={this.setVisibleModal}>
-                        <Text style={styles.message}>編集</Text>
-                    </Button>
-                </Content>
-                <Content style={{ flex: 9 }}>
-                    <Container >
-                        <Text style={styles.textValue}> {this.state.textValue}</Text>
-                    </Container>
-                </Content>
+            <View style={{ flex: 1 }}>
+                <View flexDirection='row'>
+                    <Text style={styles.message}>{this.props.concept}</Text>
+                    <Button style={styles.message} title="編集" onPress={this.setVisibleModal} />
+                </View>
+                <Text>{this.state.textValue}</Text>
                 <UserInputModal
                     visible={this.state.visible}
                     explanation={this.props.explanation}
@@ -40,22 +32,7 @@ export class TextContainer extends Component {
                     textValue={this.state.textValue}
                     onChangeText={this.doType}
                 />
-            </Content>
-           
-            // <View style={{ flex: 1 }}>
-            //     <View flexDirection='row'>
-            //         <Text style={styles.message}>{this.props.concept}</Text>
-            //         <Button style={styles.message} title="編集" onPress={this.setVisibleModal} />
-            //     </View>
-            //     <Text>{this.state.textValue}</Text>
-            //     <UserInputModal
-            //         visible={this.state.visible}
-            //         explanation={this.props.explanation}
-            //         setVisibleModal={this.setVisibleModal}
-            //         textValue={this.state.textValue}
-            //         onChangeText={this.doType}
-            //     />
-            // </View>
+            </View>
         );
     }
 }
@@ -74,7 +51,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#00000099',
         justifyContent: 'center',
         fontSize: 32,
-        flex: 7
+        flex: 1
     },
     modalpanel: {
         padding: 10,
@@ -88,11 +65,6 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
         // height: 40,
-    },
-    textValue: {
-        padding: 10,
-        color: 'black',
-        fontSize: 18,
     },
 
 })

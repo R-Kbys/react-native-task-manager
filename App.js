@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
-import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View, TextInputComponent } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+// import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View,} from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
+import { Container, Header, Content, Item, Input, Icon, Label } from 'native-base';
+import 'react-native-gesture-handler';
+// import { createAppContainer } from 'react-navigation';
+// import { createStackNavigator } from 'react-navigation-stack';
 import { TextContainer } from './TextContainer';
-// import { ModalInput } from './ModalInput';
 
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack'
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+// const Tab = createBottomTabNavigator();
 
-class FirstScreen extends Component {
-  static navigationOptions = {
-    title: 'First Screen',
-    headerStyle: { backgroundColor: '#0a93aa', },
-    headerTintColor: 'white'
-  };
+// export default App;
+
+// class TabScreen extends Component {
+
+//   constructor(props) {
+//     super(props);
+//   };
+
+//   render(){
+//     return ( 
+//       <Tab.Navigator>
+//         <Tab.Screen name='tab1' component={FirstScreen}/>
+//         <Tab.Screen name='tab2' component={ThirdScreen}/>
+//       </Tab.Navigator>
+//     );
+// }}
+
+export default class FirstScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -24,203 +42,184 @@ class FirstScreen extends Component {
   };
 
   render() {
+    // const { itemId } = this.props.route.params;
     //   const openModalId = this.state.openModalId;
     //   const isVisible = (openModalId == id) ? false : true;
     return (
-      <View style={styles.base}>
-        <View style={styles.main}>
-      
-          <TextContainer
+      <Container style={styles.base}>
+        <Content style={styles.main}>
+          {/* // Text input box with icon aligned to the left */}
+          <Item>
+            <Icon active name='home' />
+            <Input placeholder='Icon Textbox' multiline={true} style={styles.message} />
+          </Item>
+          {/* // Text input box with icon aligned to the right */}
+          <Item stackedLabel>
+            <Label style={styles.message}>Username</Label>
+            <Input multiline={true} style={styles.message} />
+          </Item>
+          <TextContainer 
             concept='最終目標'
-            explanation='目標を定めましょう！'
-          />
+            explanation='目標を定めましょう！'/>
+        </Content>
+      </Container>
+      // <View style={styles.base}>
+      //   <ScrollView style={styles.main}>
+      //     {
+      //       this.props.route.params.textReflection && (
+      //         <View>
+      //           <Text>前回の課題</Text>
+      //           <Text> {this.props.route.params.textReflection} </Text>
+      //         </View>)
+      //     }
 
-          <TextContainer
-            concept='現状の観察'
-            explanation='目標と現在の状況の比較をして情報を整理しましょう！'
-          />
-         
-          <TextContainer
-            concept='現状の観察からの分析・判断・方針'
-            explanation='現状の観察からの分析を定しましょう！'
-          />
+      //     <TextContainer
+      //       concept='最終目標'
+      //       explanation='目標を定めましょう！'
+      //     />
 
-          <TextContainer
-            concept='意思決定'
-            explanation='分析に基づいて今やるべきことを決定しましょう！'
-          />
+      //     <TextContainer
+      //       concept='現状の観察'
+      //       explanation='目標と現在の状況の比較をして情報を整理しましょう！'
+      //     />
 
-        </View>
+      //     <TextContainer
+      //       concept='現状の観察からの分析・判断・方針'
+      //       explanation='現状の観察からの分析を定しましょう！'
+      //     />
 
-        <Button title="Next Screen" onPress={this.nextPage} />
+      //     <TextContainer
+      //       concept='意思決定'
+      //       explanation='分析に基づいて今やるべきことを決定しましょう！'
+      //     />
+      //     {/* <Text>itemId: {JSON.stringify(itemId)}</Text> */}
+      //     <TextInput
+      //       multiline={true}
+      //       value={this.state.text}
+      //       onChangeText={(text) => this.setState({ text })}
+      //       placeholder='hoge'
+      //     />
+      //   </ScrollView>
 
-      </View>
+      //   <Button title="Next Screen" onPress={this.nextPage} />
+      //   <Button title="Last Screen" onPress={this.LastPage} />
+
+      // </View>
     );
   }
 
-  setVisibleModal = () => {
-    setModalIsOpen = this.state.whichModalIsOpen;
-    setModalIsOpen[id] = !setModalIsOpen[id];
-    this.setState({ whichModalIsOpen: setModalIsOpen })
-  }
+  // setVisibleModal = () => {
+  //   setModalIsOpen = this.state.whichModalIsOpen;
+  //   setModalIsOpen[id] = !setModalIsOpen[id];
+  //   this.setState({ whichModalIsOpen: setModalIsOpen })
+  // }
 
-  NextModal = () => this.setState({ modal: !this.state.modal, secondModal: !this.state.secondModal })
-  nextPage = () => this.props.navigation.navigate('Next');
+  // NextModal = () => this.setState({ modal: !this.state.modal, secondModal: !this.state.secondModal })
+  // nextPage = () => this.props.navigation.navigate('SecondScreen', { textDecision: this.state.text });
+  // LastPage = () => this.props.navigation.navigate('ThirdScreen');
   // typeAnarisis = (text) => {
   //   this.setState(() => { return { text } })
   // };
-
 }
 
-const DATA = [{
-  id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-  title: 'Second Item',
-}, {
-  id: '58694a0f-3da1-471f-bd96-145571e29d72',
-  title: 'Third Item',
-}]
+// class SecondScreen extends Component {
 
-class SecondScreen extends Component {
-  static navigationOptions = {
-    title: 'Second Screen',
-    headerStyle: { backgroundColor: '#0a93aa', },
-    headerTintColor: 'white'
-  };
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       text: '',
+//     };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Screen 2',
-      text: ''
-    };
+//   }
 
-  }
+//   render() {
+//     return (
+//       <View style={styles.base}>
+//         <View style={{ padding: 10 }}>
+//           <Button title="Go back " onPress={this.doAction1} />
+//           <Button title="Next Screen" onPress={this.doAction2} />
+//         </View>
+//         <View style={{ flex: 1, backgroundColor: 'darkblue' }}>
+//           <Text style={styles.title}>{this.props.route.params.textDecision}</Text>
+//         </View>
+//         <ScrollView>
+//           <TextContainer
+//             concept='理解したこと．習得したこと'
+//             explanation='今回の学習で成長したことを書きましょう'
+//           />
+//           {/* <SafeAreaView style={styles.container}>
+//           <FlatList
+//             data={DATA}
+//             renderItem={({ item }) => <Item title={item.title} />}
+//             keyExtractor={item => item.id}
+//           />
+//         </SafeAreaView> */}
+//         </ScrollView>
+//       </View>
+//     );
+//   }
 
-  render() {
-    return (
-      <View style={styles.base}>
-        <View style={{ padding: 10 }}>
-          <Button title="Go back " onPress={this.doAction1} />
-          <Button title="Next Screen" onPress={this.doAction2} />
-        </View>
-        <View style={{ flex: 1, backgroundColor: 'darkblue' }}>
-          <Text style={styles.title}>{}</Text>
-        </View>
-        <SafeAreaView style={styles.container}>
-          <FlatList
-            data={DATA}
-            renderItem={({ item }) => <Item title={item.title} />}
-            keyExtractor={item => item.id}
-          />
-        </SafeAreaView>
-        <ScrollView>
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-          <TextInput
-            placeholder="タスク1"
-            value={this.state.text}
-            onChangeText={this.doType}
-            style={styles.message}
-            multiline={true} />
-        </ScrollView>
-      </View>
-    );
-  }
+//   doAction1 = () => {
+//     this.props.navigation.navigate('FirstScreen', {
+//     });
+//   }
+//   doAction2 = () => {
+//     this.props.navigation.navigate('ThirdScreen');
+//   }
+//   doType = text => this.setState({ text });
 
-  doAction1 = () => {
-    this.props.navigation.goBack();
-  }
-  doAction2 = () => {
-    this.props.navigation.navigate('Last');
-  }
-  doType = text => this.setState({ text });
+// }
 
-}
+// class ThirdScreen extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       textReflection: ''
+//     }
+//   }
 
-function Item({ title }) {
-  return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-}
+//   render() {
 
-class ThirdScreen extends Component {
-  static navigationOptions = {
-    title: '3 Screen',
-    headerStyle: { backgroundColor: '#0a93aa', },
-    headerTintColor: 'white'
-  };
+//     return (
+//       <View style={styles.base}>
+//         <View style={styles.main}>
 
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    return (
-      <View style={styles.base}>
-        <View style={styles.main}>
+//           <TextContainer
+//             concept='理解したこと．習得したこと'
+//             explanation='今回の学習で成長したことを書きましょう'
+//           />
 
-            <TextContainer
-              concept='理解したこと．習得したこと'
-              explanation='今回の学習で成長したことを書きましょう'
-            />
+//           <TextContainer
+//             concept='課題'
+//             explanation='今回の学習で見えた課題やできなかったことを書きましょう'
+//           />
 
-            <TextContainer
-              concept='課題'
-              explanation='今回の学習で見えた課題やできなかったことを書きましょう'
-            />
+//           <TextInput
+//             multiline={true}
+//             value={this.state.text}
+//             onChangeText={(textReflection) => this.setState({ textReflection })}
+//             placeholder='hoge'
+//           />
 
-            
-            <Button title="Go back " onPress={this.doAction1} />
+//           <Button title="Go back " onPress={this.doAction1} />
+//           <Button title="generate random number " onPress={this.generateRandom} />
 
-        </View>
-      </View>
-      
-    );
-  }
-  doAction1 = () => {
-    this.props.navigation.popToTop();
-  }
-}
+//         </View>
+//       </View>
 
-const MainNavigator = createStackNavigator(
-  {
-    Home: { screen: FirstScreen },
-    Next: { screen: SecondScreen },
-    Last: { screen: ThirdScreen },
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
+//     );
+//   }
 
-const AppContainer = createAppContainer(MainNavigator);
-// export default App;
+//   doAction1 = () => {
+//     this.props.navigation.navigate('FirstScreen', {
+//       textReflection: this.state.textReflection,
+//     })
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <AppContainer />
-    );
-  }
-}
+
+//   }
+
+// }
+
 
 export const styles = StyleSheet.create({
   base: { padding: 0, flex: 1, },

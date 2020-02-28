@@ -21,23 +21,21 @@ export function UserInputModal(props) {
             // viewで囲むとキーボードが自動で隠れなくて不便
             */}
             {/* <Content></Content> contentで囲むとボタンが下に行ってしまう*/}
-            {/* <Content> */}
-            {/* <Overlay>の子コンポートを上記のように一つに囲まずにやるとwarningがでるが，うまくいく */}
-            <Container >
-                <Content contentContainerStyle={styles.inputArea}>
-                    <Label style={styles.title}>Username</Label>
-                    <Form style={styles.message}>
-                        <Textarea
-                            rowSpan={8}
-                            bordered
-                            placeholder="Textarea"
-                            value={props.textValue}
-                            onChangeText={props.onChangeText}
-                            returnKeyType='done'
-                        />
-                    </Form>
-                </Content>
-                {/* 
+            <Content>
+                <Container style={styles.inputArea}>
+                    <Content>
+                        <Label style={styles.title}>Username</Label>
+                        <Form style={styles.message}>
+                            <Textarea
+                                rowSpan={15}
+                                bordered
+                                placeholder="Textarea"
+                                value={props.textValue}
+                                onChangeText={props.onChangeText}
+                            />
+                        </Form>
+                    </Content>
+                    {/* 
                         <Input
                             placeholder='Rounded Textbox'
                             value={props.textValue}
@@ -45,13 +43,14 @@ export function UserInputModal(props) {
                             style={styles.message}
                             multiline={true}
                         /> */}
-                <Content contentContainerStyle={styles.buttoArea}>
+                </Container>
+
+                <Container style={styles.buttoArea}>
                     <Button block onPress={props.setVisibleModal}>
                         <Text style={styles.text}>閉じる</Text>
                     </Button>
-                </Content>
-            </Container>
-            {/* </Content> */}
+                </Container>
+            </Content>
             {/* </View> */}
         </Overlay >
 
@@ -75,7 +74,7 @@ export const styles = StyleSheet.create({
     buttoArea: {
         padding: 10,
         margin: 10,
-        flex: 2,
+        flex: 2
     },
     message: {
         padding: 10,
