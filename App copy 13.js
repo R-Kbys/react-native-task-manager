@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 // import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View,} from 'react-native';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { Container, Header, Content, Text } from 'native-base';
+import { Container, Header, Content, Text, Button, Form } from 'native-base';
 import 'react-native-gesture-handler';
 import { TextContainer } from './TextContainer';
 import { TimerContainer } from './TimerContainer';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-import { SecondScreen } from './SecondScreen';
 
 const Stack = createStackNavigator();
 
@@ -60,7 +58,9 @@ class FirstScreen extends Component {
 
   constructor(props) {
     super(props);
-    
+    this.state = {
+      targetIsDone: false,
+    }
   };
 
   render() {
@@ -68,23 +68,19 @@ class FirstScreen extends Component {
     //   const openModalId = this.state.openModalId;
     //   const isVisible = (openModalId == id) ? false : true;
     return (
-      <View style={styles.base}>
-        <View style={{ flex: 1 }}>
+      <Container>
+        <Content>
           <Text>{this.props.route.params.textDecision}</Text>
-        </View>
+        </Content>
 
-        <View style={{ flex: 1 }}>
-          <Button title='目標を設定する' onPress={this.nextPage}/>
+        <Content>
+          <Button block onPress={this.nextPage}>
             <Text style={styles.text}>目標を設定する</Text>
-          {/* <Button block onPress={this.nextPage}>
-            <Text style={styles.text}>目標を設定する</Text>
-          </Button> */}
+          </Button>
+          <TimerContainer/>
 
-        </View>
-        <TimerContainer />
-
-
-      </View>
+        </Content>
+      </Container>
 
       // <View style={styles.base}>
       //   <View style={{ padding: 10 }}>
@@ -122,6 +118,71 @@ class FirstScreen extends Component {
 
 }
 
+class SecondScreen extends Component {
+
+  constructor(props) {
+    super(props);
+    this.setInput = React.createRef();
+    this.state = {
+      textDecision: '',
+    };
+  }
+
+  render() {
+
+
+    return (
+      <Container style={styles.base}>
+        {/* <Content> で囲むと．． */}
+        {this.props.route.params.textReflection && (
+          <Content>
+            <Text>前回の課題</Text>
+            <Text>{this.props.route.params.textReflection}</Text>
+          </Content>
+        )}
+
+        <TextContainer
+          concept='最終目標'
+          explanation='目標を定めましょう！'
+        />
+
+
+        <TextContainer
+          concept='現状の観察'
+          explanation='目標を定めましょう！'
+        />
+
+
+        <TextContainer
+          concept='現状の観察からの分析・判断・方針'
+          explanation='目標を定めましょう！'
+        />
+
+
+        <TextContainer
+          concept='意思決定'
+          explanation='目標を定めましょう！'
+          ref={this.setInput}
+        />
+
+        <Content contentContainerStyle={styles.buttoArea}>
+          <Button block onPress={this.nextPage}>
+            <Text style={styles.text}>始める</Text>
+          </Button>
+        </Content>
+
+      </Container>
+    );
+  }
+
+  nextPage = () => {
+    this.props.navigation.navigate('FirstScreen', {
+      textDecision: this.setInput.current.refTextValue()
+    });
+  }
+
+}
+
 class ThirdScreen extends Component {
   constructor(props) {
     super(props);
@@ -149,9 +210,9 @@ class ThirdScreen extends Component {
         </Content>
 
         <Content contentContainerStyle={styles.buttoArea}>
-          {/* <Button onPress={this.nextPage}>
+          <Button block onPress={this.nextPage}>
             <Text style={styles.text}>終了</Text>
-          </Button> */}
+          </Button>
         </Content>
 
       </Container>

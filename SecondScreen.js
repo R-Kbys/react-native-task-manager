@@ -1,80 +1,92 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View,Button} from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
+import { Container, Content, Text, Button } from 'native-base';
+import { TextContainer } from './TextContainer';
+import { StyleSheet, ScrollView, View } from 'react-native';
 
-
-export class SScreen extends Component {
-    static navigationOptions = {
-        title: 'Second Screen',
-        headerStyle: { backgroundColor: '#00aa00', },
-        headerTintColor: 'white'
+export class SecondScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.setInput = React.createRef();
+    this.state = {
+      textDecision: '',
     };
+  }
+  render() {
+    return (<Container style={styles.base}>
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: 'Screen 2',
-            message: 'this is a  navigation sample 2'
-        }
-    }
-    render() {
-        return (
-            <View style={styles.base}>
-                <View style={styles.body}>
-                    <Text style={styles.title}>{this.state.title}</Text>
-                    <Text style={styles.message}>{this.state.message}</Text>
-                    <View style={{ padding: 10 }}>
-                        <Button title="Go back " onPress={this.doAction1} />
-                    </View>
-                    <View style={{ padding: 10 }}>
-                        <Button title="Next Screen" onPress={this.doAction2} />
-                    </View>
-                    <View style={{ backgroundColor: 'black' }}></View>
-                    <Text>HELLO</Text>
-                </View>
-            </View>
-        );
-    }
-    doAction1 = () => {
-        this.props.navigation.goBack();
-    }
-    doAction2 = () => {
-        this.props.navigation.navigate('Last');
-    }
+      {this.props.route.params.textReflection && (<Content>
+        <Text>前回の課題</Text>
+        <Text>{this.props.route.params.textReflection}</Text>
+      </Content>)}
+
+      <TextContainer concept='最終目標' explanation='目標を定めましょう！' />
+
+
+      <TextContainer concept='現状の観察' explanation='目標を定めましょう！' />
+
+
+      <TextContainer concept='現状の観察からの分析・判断・方針' explanation='目標を定めましょう！' />
+
+
+      <TextContainer concept='意思決定' explanation='目標を定めましょう！' ref={this.setInput} />
+
+      <Content contentContainerStyle={styles.buttoArea}>
+        <Button block onPress={this.nextPage}>
+          <Text style={styles.text}>始める</Text>
+        </Button>
+      </Content>
+
+    </Container>);
+  }
+  nextPage = () => {
+    this.props.navigation.navigate('FirstScreen', {
+      textDecision: this.setInput.current.refTextValue()
+    });
+  };
 }
 
-const styles = StyleSheet.create({
-    base: { padding: 0, flex: 1, },
-    body: { padding: 10, flex: 1, backgroundColor: '#0a55aa', },
-    main: { padding: 10, flex: 2, backgroundColor: 'black', flexDirection: 'row' },
-    title: {
-        padding: 10,
-        color: 'red',
-        textAlign: 'center',
-        fontSize: 42,
-        fontWeight: 'bold'
-    },
-    message: {
-        padding: 10,
-        color: 'green',
-        fontSize: 24,
-        lineHeight: 15,
-        textAlign: 'center',
-        height: 40,
-    },
-    containerText: {
-        width: 50,
-        height: 50,
-        position: 'absolute',
-        bottom: '-20%',
-    },
-    image: {
-        width: 70,
-        height: 70,
-        position: 'absolute',
-        bottom: '80%',
-    }
 
-});
+export const styles = StyleSheet.create({
+  base: { padding: 0, flex: 1, },
+  body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
+  main: { padding: 10, flex: 8, backgroundColor: 'white', },
+  title: {
+    padding: 10,
+    color: 'black',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  modalbase: {
+    backgroundColor: '#00000099',
+    justifyContent: 'center',
+    fontSize: 32,
+    flex: 1
+  },
+  modalpanel: {
+    padding: 10,
+    margin: 50,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  message: {
+    padding: 10,
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center',
+    // height: 40,
+  },
+  image: {
+    width: 70,
+    height: 70,
+    position: 'absolute',
+    bottom: '80%',
+  },
+  buttoArea: {
+    padding: 10,
+    margin: 10,
+    flex: 1,
+  }
 
-// export default SScreen;
+})
+

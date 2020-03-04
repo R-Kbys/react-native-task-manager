@@ -18,19 +18,20 @@ export class TextContainer extends Component {
 
     setVisibleModal = () => this.setState({ visible: !this.state.visible })
     doType = textValue => this.setState({ textValue });
-
+    refTextValue = () =>  this.state.textValue;
+    
     render() {
         return (
-            <Content >
-                <Content contentContainerStyle={{ flexDirection:'row', flex: 1 }}>
+            <React.Fragment >
+                <View style={{ flexDirection: 'row', flex: 1 }}>
                     <Text style={styles.message}>{this.props.concept} </Text>
                     <Button rounded info onPress={this.setVisibleModal}>
                         <Text style={styles.message}>編集</Text>
                     </Button>
-                </Content>
-                <Content style={{ flex: 9 }}>
+                </View>
+                <Content style={{ flex: 12 }}>
                     <Container >
-                        <Text style={styles.textValue}> {this.state.textValue}</Text>
+                        <Text style={styles.textValue}>{this.state.textValue}</Text>
                     </Container>
                 </Content>
                 <UserInputModal
@@ -40,8 +41,8 @@ export class TextContainer extends Component {
                     textValue={this.state.textValue}
                     onChangeText={this.doType}
                 />
-            </Content>
-           
+            </React.Fragment>
+
             // <View style={{ flex: 1 }}>
             //     <View flexDirection='row'>
             //         <Text style={styles.message}>{this.props.concept}</Text>
@@ -83,14 +84,14 @@ export const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     message: {
-        padding: 10,
+        padding: 8,
         color: 'black',
         fontSize: 16,
         textAlign: 'center',
         // height: 40,
     },
     textValue: {
-        padding: 10,
+        padding: 8,
         color: 'black',
         fontSize: 18,
     },

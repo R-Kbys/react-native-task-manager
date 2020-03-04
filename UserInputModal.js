@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, StyleSheet, View } from 'react-native';
-import { Container, Header, Content, Text, Button, Item, Label, Input, Form, Textarea } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Text, Button, Label, Input, Form, Textarea } from 'native-base';
 import { Overlay } from 'react-native-elements';
 
 export function UserInputModal(props) {
@@ -9,13 +9,10 @@ export function UserInputModal(props) {
     return (
         <Overlay
             transparent={false}
-            animationType="fade"
+            animationType="slide"
             isVisible={props.visible}
             overlayBackgroundColor='white'
             fullScreen={true}
-
-        // containerStyle={styles.overlay}
-
         >
             {/* <View style={styles.text}> 
             // viewで囲むとキーボードが自動で隠れなくて不便
@@ -25,7 +22,7 @@ export function UserInputModal(props) {
             {/* <Overlay>の子コンポートを上記のように一つに囲まずにやるとwarningがでるが，うまくいく */}
             <Container >
                 <Content contentContainerStyle={styles.inputArea}>
-                    <Label style={styles.title}>Username</Label>
+                    <Label style={styles.title}>{props.explanation}</Label>
                     <Form style={styles.message}>
                         <Textarea
                             rowSpan={8}
@@ -34,6 +31,7 @@ export function UserInputModal(props) {
                             value={props.textValue}
                             onChangeText={props.onChangeText}
                             returnKeyType='done'
+                            autoFocus={true}
                         />
                     </Form>
                 </Content>
@@ -60,12 +58,6 @@ export function UserInputModal(props) {
 
 
 export const styles = StyleSheet.create({
-
-    overlay: {
-        // backgroundColor: 'white',
-        // fontSize: 32,
-        // flex: 8
-    },
     inputArea: {
         padding: 10,
         margin: 10,
@@ -94,7 +86,6 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         flex: 1
-
     }
 
 })
