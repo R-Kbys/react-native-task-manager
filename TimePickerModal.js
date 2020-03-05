@@ -32,7 +32,10 @@ export function TimePickerModal(props) {
                 />
               </View>
 
-              <Timer />
+              <Timer 
+              date={props.date}
+              onChange={props.onChange}
+              />
 
             </View>
           </View>

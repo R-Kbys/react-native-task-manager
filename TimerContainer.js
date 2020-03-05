@@ -1,52 +1,82 @@
-import React, { useState } from 'react';
-import { StyleSheet ,View} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { TimePickerModal } from './TimePickerModal';
 import { Container, Header, Content, Text } from 'native-base';
 import { Button } from 'react-native-elements';
 
-
-export const TimerContainer = (props) => {
-  // const [date, setDate] = useState(new Date(1598051730000));
-  const [isModalVisible, toggleModal] = useState(false);
-const [isStart,setStart] = useState(false);
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   setDate(currentDate);
-  // };
-
-  let startTime;
-
-  startStudy = () => {
-    const date = new Date();
-    return startTime = <Text>学習開始時刻{date.getHours()}:{date.getMinutes()}</Text>
+export class TimerContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalVisible: false,
+      isStart: false,
+      date: 298051730000,
+    }
   };
 
-  return (
-    <React.Fragment>
-      <TimePickerModal
-        isModalVisible={isModalVisible}
-        onBackdropPress={() => toggleModal(!isModalVisible)}
-        onSwipeComplete={() => toggleModal(!isModalVisible)}
-        swipeThreshold={50}
-        style={{ marginHorizontal: 0, top:'50%'}}
-      />
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    this.setState({ date: currentDate });
+  };
 
-      {/* <Text>{date.getHours()}:{date.getMinutes()}</Text> */}
-      {isStart && startTime}
+  toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
-      <Button
-        title='始める'
-        onPress={() => setStart(true)}
-        // active={!startTime}
-      />
-       
-      <Button
-        title='時間'
-        onPress={() => toggleModal(!isModalVisible)}
-        // active={!startTime}
-      />
-       
+  setStart = () => this.setState({ isStart: true });
 
-    </React.Fragment>
-  );
+
+
+  render() {
+    const isStart = this.state.isStart;
+    let button;
+
+    if (isStart) {
+      button =
+        <>
+          <Button
+            title='勉強終了'
+            onPress={this.setStart}
+          //終了するとき
+          />
+          <ShowStartTime />
+        </>;
+    } else {
+      button = <Button
+        title='勉強始める'
+        onPress={this.setStart}
+      />;
+    }
+
+    ShowStartTime = () => {
+      const startDate = new Date();
+      const time = this.state.date;
+      return (
+        <>
+      <Text>学習開始時刻{startDate.getHours()}:{startDate.getMinutes()}</Text>
+      <Text>予定学習時間{time.getHours()}:{time.getMinutes()}</Text>
+      </>)
+    };
+
+    return (
+      <React.Fragment>
+        <TimePickerModal
+          isModalVisible={this.state.isModalVisible}
+          onSwipeComplete={this.toggleModal}
+          onBackdropPress={this.toggleModal}
+          swipeThreshold={100}
+          style={{ marginHorizontal: 0, top: '50%' }}
+          date={this.state.date}
+          onChange={this.onChange}
+        />
+
+        <Button
+          title='集中する時間を設定'
+          onPress={this.toggleModal}
+          disabled={this.state.isStart}
+        />
+
+        {button}
+
+      </React.Fragment>
+    );
+  }
 }

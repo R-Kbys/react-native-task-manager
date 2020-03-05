@@ -3,17 +3,17 @@ import { View ,Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
-export function Timer(){
-  const [date, setDate] = useState(new Date(1598051730000));
+export function Timer(props){
+//   const [date, setDate] = useState(new Date(1598051730000));
   // const [mode, setMode] = useState('date');
   // const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+//   const onChange = (event, selectedDate) => {
+//     const currentDate = selectedDate || date;
 
-    setDate(currentDate);
-    // setShow(Platform.OS === 'ios' ? true : false);
-  };
+//     setDate(currentDate);
+//     // setShow(Platform.OS === 'ios' ? true : false);
+//   };
 
   // const showMode = currentMode => {
   //   setShow(true);
@@ -39,11 +39,11 @@ export function Timer(){
       {/* {show && ( */}
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={props.date}
           mode='time'
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={props.onChange}
         />
       {/* )} */}
       {/* <Text style={{}}>{date.getHours()}:{date.getMinutes()}</Text> */}
