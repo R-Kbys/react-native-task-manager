@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import { View } from "react-native";
 import Modal from "react-native-modal";
 // import { Timer } from "./Timer";
 import { Button } from "react-native-elements"
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { render } from "react-dom";
 
 
-export function TimePickerModal(props) {
+// export function TimePickerModal(props) {
+export class TimePickerModal extends Component {
+constructor(props){
+  super(props);
+  this.state({
+    date: 1598051730000,
+  });
+}
+// const[date, setDate] = useState(new Date(1598051730000));
 
-  const [date, setDate] = useState(new Date(1598051730000));
+onChange = (event, selectedDate) => {
+  const currentDate = selectedDate || date;
+this.setState(date:currentDate)
+};
+// const onChange = (event, selectedDate) => {
+//   const currentDate = selectedDate || date;
+//   setDate(currentDate);
+// };
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
-  };
-
-  // const refSelectedTime = () => date;
-
+// const refSelectedTime = () => date;
+ refSelectedTime = () => date;
+render() {
   return (
     <Modal
       isVisible={props.isModalVisible}
@@ -40,7 +52,7 @@ export function TimePickerModal(props) {
         </View>
         <View style={{ alignContent: 'center' }}>
           <DateTimePicker
-            testID="dateTimePicker"
+            // testID="dateTimePicker"
             timeZoneOffsetInMinutes={0}
             value={date}
             mode='time'
@@ -52,5 +64,5 @@ export function TimePickerModal(props) {
       </View>
     </Modal>
   );
-
+}
 }
