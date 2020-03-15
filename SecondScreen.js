@@ -68,6 +68,7 @@ export class SecondScreen extends Component {
   nextPage = () => {
     this.props.navigation.navigate('FirstScreen', {
       textDecision: this.setInput.current.refTextValue(),
+      stage:1
     });
   };
 }

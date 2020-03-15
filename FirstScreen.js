@@ -11,6 +11,7 @@ export class FirstScreen extends Component {
             isDisabled: false
         }
     };
+ 
     // componentDidUpdate() {
     //     // 典型的な使い方(props を比較することを忘れないでください)
     //     if (textDecision == 'string') {
@@ -19,6 +20,11 @@ export class FirstScreen extends Component {
     //     }
     // }
     render() {
+        console.log('render')
+        const text = this.state.text;
+        const buttonDisablity1 = [false, false, true];
+        const buttonDisablity2 = [true, false, true];
+        const stage = this.props.route.params.stage;
         const hour = this.props.route.params.startHour;
         const min = this.props.route.params.startMin;
         const textDecision = this.props.route.params.textDecision;
@@ -39,14 +45,19 @@ export class FirstScreen extends Component {
                 }
 
                 <View style={{ flex: 1, padding: 6, margin: 6 }}>
-                    <Button title='目標を設定する' onPress={this.nextPage} />
+                    <Button 
+                    title='目標を設定する' 
+                    onPress={this.nextPage} 
+                    disabled={buttonDisablity1[stage]}
+                    />
+
                 </View>
 
                 <View style={{ flex: 1, padding: 6, margin: 6 }}>
                     <Button
                         onPress={() => this.props.navigation.navigate('MyModal')}
                         title="集中する時間を設定"
-                        disabled={isDisabled}
+                        disabled={buttonDisablity2[stage]}
                     />
                 </View>
 
@@ -54,7 +65,7 @@ export class FirstScreen extends Component {
                     {
                         hour &&
                         <>
-                            <Button title='勉強終了' onPress={this.doAction2} disabled={!isDisabled} />
+                            <Button title='勉強終了' onPress={this.doAction2} disabled={!buttonDisablity1[stage]} />
                             <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                         </>
                     }

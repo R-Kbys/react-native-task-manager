@@ -29,10 +29,11 @@ export function ModalScreen(props) {
             <Button onPress={() => props.navigation.navigate('Main', {
                 screen: 'FirstScreen',
                 params: {
+                    stage:2,
                     startHour: startHour,
                     startMin: startMin
                 }
-            })} title="完了" />
+            })} title="タスクを始める" />
         </View>
 
     );

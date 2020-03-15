@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,View } from 'react-native';
+import { Button } from 'react-native-elements';
+import { Container, Content, Text } from 'native-base';
 import { TextContainer } from './TextContainer';
 export class ThirdScreen extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ export class ThirdScreen extends Component {
     };
   }
   render() {
-    return (<Container style={styles.base}>
+    return (
+    <Container style={styles.base}>
       <Content style={styles.main}>
 
         <TextContainer concept='理解したこと．習得したこと' explanation='今回の学習で成長したことを書きましょう' />
@@ -22,24 +25,26 @@ export class ThirdScreen extends Component {
 
       </Content>
 
-    </Container>
-      // <View style={styles.base}>
-      //   <View style={styles.main}>
-      //     {/* <TextInput
-      //       multiline={true}
-      //       value={this.state.text}
-      //       onChangeText={(textReflection) => this.setState({ textReflection })}
-      //       placeholder='hoge'
-      //     /> */}
-      //     <Button title="Go back " onPress={this.doAction1} />
-      //     <Button title="generate random number " onPress={this.generateRandom} />
-      //   </View>
-      // </View>
+      <View style={styles.base}>
+        <View style={styles.main}>
+          {/* <TextInput
+            multiline={true}
+            value={this.state.text}
+            onChangeText={(textReflection) => this.setState({ textReflection })}
+            placeholder='hoge'
+          /> */}
+          <Button title="Go back " onPress={this.doAction1} />
+          <Button title="generate random number " onPress={this.generateRandom} />
+        </View>
+      </View>
+      </Container>
+
     );
   }
   nextPage = () => {
-    this.props.navigation.navigate('SecondScreen', {
+    this.props.navigation.navigate('FirstScreen', {
       textReflection: this.state.textReflection,
+      stage:0
     });
   };
 }

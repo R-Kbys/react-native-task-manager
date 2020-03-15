@@ -77,7 +77,7 @@ export class Example extends React.Component {
                 onPress={() => this.props.navigation.navigate("StorageExample", {
                     stage: 2
                 })}
-                title="集中する時間を設定0" disabled={buttonDisablity1[stage]} />
+                title="集中する時間を設定2" disabled={buttonDisablity1[stage]} />
             <Button
                 // onPress={() => this.props.navigation.navigate('MyModal')}
                 title="常にdisable" disabled={buttonDisablity1[2]} />
