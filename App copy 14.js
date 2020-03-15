@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View,} from 'react-native';
 import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
-import { TextContainer } from './TextContainer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SecondScreen } from './SecondScreen';
 import { FirstScreen } from './FirstScreen';
 import { ModalScreen } from './ModalScreen';
+import { ThirdScreen } from './ThirdScreen';
 
 const Stack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -54,7 +54,7 @@ function MainStackScreen() {
       <MainStack.Screen
         name="FirstScreen"
         component={FirstScreen}
-        initialParams={{ textDecision: null ,StartHour: null ,startMin:null}}
+        initialParams={{ textDecision: null ,StartHour: null ,startMin:null,stage:0}}
         options={{
           title: 'ホーム',
           headerStyle: { backgroundColor: '#2089dc',},
@@ -127,68 +127,6 @@ function MainStackScreen() {
 // }
 
 export default App;
-
-class ThirdScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      textReflection: ''
-    }
-  }
-
-  render() {
-
-    return (
-      <Container style={styles.base}>
-        <Content style={styles.main}>
-
-          <TextContainer
-            concept='理解したこと．習得したこと'
-            explanation='今回の学習で成長したことを書きましょう'
-          />
-
-          <TextContainer
-            concept='課題'
-            explanation='今回の学習で見えた課題やできなかったことを書きましょう'
-          />
-
-        </Content>
-
-        <Content contentContainerStyle={styles.buttoArea}>
-          {/* <Button onPress={this.nextPage}>
-            <Text style={styles.text}>終了</Text>
-          </Button> */}
-        </Content>
-
-      </Container>
-
-      // <View style={styles.base}>
-      //   <View style={styles.main}>
-      //     {/* <TextInput
-      //       multiline={true}
-      //       value={this.state.text}
-      //       onChangeText={(textReflection) => this.setState({ textReflection })}
-      //       placeholder='hoge'
-      //     /> */}
-      //     <Button title="Go back " onPress={this.doAction1} />
-      //     <Button title="generate random number " onPress={this.generateRandom} />
-
-      //   </View>
-      // </View>
-
-    );
-  }
-
-  nextPage = () => {
-    this.props.navigation.navigate('SecondScreen', {
-      textReflection: this.state.textReflection,
-    })
-
-
-  }
-
-}
-
 
 export const styles = StyleSheet.create({
   base: { padding: 0, flex: 1, },
