@@ -7,7 +7,7 @@ import { Button } from "react-native-elements"
 
 
 export function UserInputModal(props) {
-
+console.log('UserInputModal was rendered')
   return (
     <Modal
       isVisible={props.visible}
@@ -34,7 +34,7 @@ export function UserInputModal(props) {
               <Textarea
                 rowSpan={8}
                 bordered
-                placeholder="Textarea"
+                placeholder="ここに箇条書きで入力"
                 value={props.textValue}
                 onChangeText={props.onChangeText}
                 returnKeyType='done'

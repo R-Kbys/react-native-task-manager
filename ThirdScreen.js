@@ -42,6 +42,7 @@ export class ThirdScreen extends Component {
   nextPage = async () => {
     try {
       await AsyncStorage.setItem('stage', '3');
+      console.log('setItem() stage 3 ')
     }
     catch (error) {
       console.log(error);
@@ -56,7 +57,7 @@ export class ThirdScreen extends Component {
 export const styles = StyleSheet.create({
     base: { padding: 0, flex: 1, },
     body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
-    main: { padding: 10, flex: 8, backgroundColor: 'white', },
+    main: { padding: 10, backgroundColor: 'white', },
     title: {
         padding: 10,
         color: 'black',
@@ -92,7 +93,7 @@ export const styles = StyleSheet.create({
     buttoArea: {
         padding: 10,
         margin: 10,
-        flex: 1,
+    
     }
 
 })

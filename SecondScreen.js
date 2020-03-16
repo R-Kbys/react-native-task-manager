@@ -37,11 +37,11 @@ export class SecondScreen extends Component {
 
           {/* <TextContainer concept='最終目標' explanation='目標を定めましょう！' /> */}
 
-          <TextContainer concept='現状の観察' explanation='目標を定めましょう！' style={styles.container}/>
+          <TextContainer textTitle='observation' concept='現状の観察' explanation='目標を定めましょう！' style={styles.container}/>
 
-          <TextContainer concept='現状の観察からの分析・判断・方針' explanation='目標を定めましょう！'style={styles.container} />
+          <TextContainer textTitle='analysis' concept='現状の観察からの分析・判断・方針' explanation='目標を定めましょう！'style={styles.container} />
 
-          <TextContainer concept='意思決定' explanation='目標を定めましょう！' ref={this.setInput} style={styles.container}/>
+          <TextContainer textTitle='decision' concept='意思決定' explanation='目標を定めましょう！' ref={this.setInput} style={styles.container}/>
 
         </Content>
 

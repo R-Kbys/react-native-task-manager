@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Modal, TextInput, Text, View, Button, StyleSheet } from 'react-native';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Container, Header, Content, Text } from 'native-base';
 // import { Container, Header, Content, Text, Button } from 'native-base';
@@ -14,11 +14,32 @@ export class TextContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            textValue: '● ¥n ● ',
+            textValue: '',
             visible: false,
         }
     };
-
+    async componentDidMount() {
+        try {
+            const key = 'text' + this.props.textTitle;
+            const textValue = await AsyncStorage.getItem(key);
+            console.log('didMount  textContainer component ',key ,textValue, typeof textValue);
+            this.setState({ textValue: textValue || '●　●　●'.replace(/\s\s/g, '\n')});
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    async componentWillUnmount(){
+        try {
+            const key = 'text' + this.props.textTitle;
+            await AsyncStorage.setItem(key, this.state.textValue);
+            console.log('will Unmout textContainer component',key , this.state.textValue);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    
     setVisibleModal = () => this.setState({ visible: !this.state.visible })
     doType = textValue => this.setState({ textValue });
     refTextValue = () => this.state.textValue;
@@ -109,7 +130,6 @@ export const styles = StyleSheet.create({
         padding: 8,
         fontSize: 16,
         textAlign: 'center',
-
         // paddingTop:2,
         // paddingBottom:1
         // height: 40,
@@ -118,6 +138,7 @@ export const styles = StyleSheet.create({
         padding: 6,
         color: 'black',
         fontSize: 16,
+        // selectable:true,
     },
     editButton: {
         margin: 4,

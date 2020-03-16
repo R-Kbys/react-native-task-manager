@@ -20,7 +20,7 @@ export class FirstScreen extends Component {
         try {
             const value = await AsyncStorage.getItem("stage");
             if (value != null) {
-                console.log('ComponentDidMounnt()', value);
+                console.log('ComponentDidMounnt() in the s1 stage', value);
                 this.setState({ stage: value });
             }
         }
@@ -58,7 +58,7 @@ export class FirstScreen extends Component {
     }
 
     render() {
-        console.log('render')
+        console.log('render s1')
         const buttonDisablity1 = [false, false, true];
         const buttonDisablity2 = [true, false, true];
         // navigation を通じてrouteを渡していく場合
@@ -68,21 +68,23 @@ export class FirstScreen extends Component {
         const hour = this.props.route.params.startHour;
         const min = this.props.route.params.startMin;
         const textDecision = this.props.route.params.textDecision;
-        const isTimeInput = (typeof hour != 'number') ? true : false;
+        const isTimeInput = (stage == 2) ? true : false;
         // const isDisabled = (textDecision != 'string') ? true : !isTimeInput;
         // let isDisabled = (textDecision != 'string') && isTimeInput || !isTimeInput;
         // this.setState({ isDisabled: isDisabled });
         return (
             <View style={styles.base}>
-                <TextContainer concept='最終目標' explanation='最終的な到達点を決めましょう' style={{ flex: 1, padding: 4, margin: 4 }} />
+                <TextContainer textTitle='aim' concept='最終目標' explanation='最終的な到達点を決めましょう' style={{ flex: 1, padding: 4, margin: 4 }} />
+                <View style={{ flex: 1, padding: 6, margin: 4 }}>
 
-                {
-                    textDecision &&
-                    <View style={{ flex: 1, padding: 6, margin: 4 }}>
-                        <Text>目先の短期目標</Text>
-                        <Text>{textDecision}</Text>
-                    </View>
-                }
+                    {
+                        textDecision &&
+                        <>
+                            <Text>目先の短期目標</Text>
+                            <Text>{textDecision}</Text>
+                        </>
+                    }
+                </View>
 
                 <View style={{ flex: 1, padding: 6, margin: 6 }}>
                     <Button
@@ -90,8 +92,9 @@ export class FirstScreen extends Component {
                         onPress={this.nextPage}
                         disabled={buttonDisablity1[stage]}
                     />
-
                 </View>
+
+                {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
 
                 <View style={{ flex: 1, padding: 6, margin: 6 }}>
                     <Button
@@ -101,10 +104,14 @@ export class FirstScreen extends Component {
                     />
                 </View>
 
-                <View style={{ flex: 1, padding: 6, margin: 6, justifyContent: 'center' }}>
-                    <Button title='勉強終了' onPress={this.doAction2} disabled={!buttonDisablity1[stage]} />
+                <View style={{ flex: 1, padding: 6, margin: 6, }}>
+                    <Button
+                        title='勉強終了'
+                        onPress={this.doAction2}
+                        disabled={!buttonDisablity1[stage]}
+                    />
                     {
-                        hour &&
+                        isTimeInput &&
                         <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                     }
                 </View>

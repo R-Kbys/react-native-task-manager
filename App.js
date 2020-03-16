@@ -47,7 +47,7 @@ function MainStackScreen() {
         },
         headerTintColor: '#fff',
         headerBackTitle: '戻る',
-        // gestureEnabled: true
+        gestureEnabled: true
       }}
     >
       <MainStack.Screen
@@ -77,7 +77,7 @@ function MainStackScreen() {
         options={{
           title: '振り返り',
           headerBackTitle: null,
-          gestureEnabled: false
+          // gestureEnabled: false
           // headerStyle: { backgroundColor: '#2089dc', },
           // headerTintColor: 'white'
         }}
