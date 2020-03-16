@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { ShowStartTime } from './ShowStartTime';
 import { TextContainer } from './TextContainer';
@@ -8,28 +8,68 @@ export class FirstScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDisabled: false
+            isDisabled: false,
+            stage: 0
         }
     };
- 
-    // componentDidUpdate() {
-    //     // 典型的な使い方(props を比較することを忘れないでください)
-    //     if (textDecision == 'string') {
-    //         // this.setState({ isDisabled: isDisabled });
-    //         isDisabled = isTimeInput || !isTimeInput;
-    //     }
-    // }
+
+    //1. アプリを終了した時の状態を再起動時に再現するため
+    //2. 意思決定の文章を示す　 storageから引っ張る
+
+    async componentDidMount() {
+        try {
+            const value = await AsyncStorage.getItem("stage");
+            if (value != null) {
+                console.log('ComponentDidMounnt()', value);
+                this.setState({ stage: value });
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    async componentDidUpdate(prevProps) {
+        // 典型的な使い方(props を比較することを忘れないでください)
+        // check textDecision was input and then stage _>1 and save
+        if (this.props.route.params.textDecision != prevProps.route.params.textDecision) {
+            // save and 
+            this.setState({ stage: 1 });
+            console.log('ComponentDidUpdate() stage1');
+            await AsyncStorage.setItem('stage', '1');
+            return;
+        }
+        // check time was input and then stage=> 2 and save;
+        // 予定学習時間はpropsで永続しないから，そもそもstage 2をストレージに記録する必要なき
+        if (this.props.route.params.startHour != prevProps.route.params.startHour) {
+            this.setState({ stage: 2 });
+            console.log('ComponentDidUpdate() stage2');
+            // await AsyncStorage.setItem('stage', '2');
+            return;
+        }
+        const value = await AsyncStorage.getItem("stage");
+        if (value == "3") {
+            this.setState({ stage: 0 });
+            console.log('ComponentDidUpdate() stage3');
+            await AsyncStorage.setItem('stage', '0');
+            return;
+        }
+
+    }
+
     render() {
         console.log('render')
-        const text = this.state.text;
         const buttonDisablity1 = [false, false, true];
         const buttonDisablity2 = [true, false, true];
-        const stage = this.props.route.params.stage;
+        // navigation を通じてrouteを渡していく場合
+        // const stage = this.props.route.params.stage;
+        // AsyncStorageを通じて念の為stageを永続し，基本はstateで直接管理
+        const stage = this.state.stage;
         const hour = this.props.route.params.startHour;
         const min = this.props.route.params.startMin;
         const textDecision = this.props.route.params.textDecision;
         const isTimeInput = (typeof hour != 'number') ? true : false;
-        const isDisabled = (textDecision != 'string') ? true : !isTimeInput;
+        // const isDisabled = (textDecision != 'string') ? true : !isTimeInput;
         // let isDisabled = (textDecision != 'string') && isTimeInput || !isTimeInput;
         // this.setState({ isDisabled: isDisabled });
         return (
@@ -45,10 +85,10 @@ export class FirstScreen extends Component {
                 }
 
                 <View style={{ flex: 1, padding: 6, margin: 6 }}>
-                    <Button 
-                    title='目標を設定する' 
-                    onPress={this.nextPage} 
-                    disabled={buttonDisablity1[stage]}
+                    <Button
+                        title='目標を設定する'
+                        onPress={this.nextPage}
+                        disabled={buttonDisablity1[stage]}
                     />
 
                 </View>
@@ -62,12 +102,10 @@ export class FirstScreen extends Component {
                 </View>
 
                 <View style={{ flex: 1, padding: 6, margin: 6, justifyContent: 'center' }}>
+                    <Button title='勉強終了' onPress={this.doAction2} disabled={!buttonDisablity1[stage]} />
                     {
                         hour &&
-                        <>
-                            <Button title='勉強終了' onPress={this.doAction2} disabled={!buttonDisablity1[stage]} />
-                            <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
-                        </>
+                        <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                     }
                 </View>
 
@@ -81,6 +119,10 @@ export class FirstScreen extends Component {
     doAction2 = () => {
         this.props.navigation.navigate('ThirdScreen');
     };
+    // doAction2 = () => {
+    //     this.setState({stage:0});
+    //     this.props.navigation.navigate('ThirdScreen');
+    // };
     doType = text => this.setState({ text });
 }
 

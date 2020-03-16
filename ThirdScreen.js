@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View } from 'react-native';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Container, Content, Text } from 'native-base';
 import { TextContainer } from './TextContainer';
@@ -21,32 +21,36 @@ export class ThirdScreen extends Component {
 
       </Content>
 
-      <Content contentContainerStyle={styles.buttoArea}>
+      {/* <Content contentContainerStyle={styles.buttoArea}>
 
-      </Content>
+      </Content> */}
 
-      <View style={styles.base}>
-        <View style={styles.main}>
-          {/* <TextInput
-            multiline={true}
-            value={this.state.text}
-            onChangeText={(textReflection) => this.setState({ textReflection })}
-            placeholder='hoge'
-          /> */}
-          <Button title="Go back " onPress={this.doAction1} />
-          <Button title="generate random number " onPress={this.generateRandom} />
-        </View>
+        <View style={styles.buttoArea}>
+          <Button title="Go back " onPress={this.nextPage} />
       </View>
       </Container>
 
     );
   }
-  nextPage = () => {
+  // nextPage = () => {
+  //   this.props.navigation.navigate('FirstScreen', {
+  //     textReflection: this.state.textReflection,
+  //     stage:0
+  //   })
+  // }
+
+  nextPage = async () => {
+    try {
+      await AsyncStorage.setItem('stage', '3');
+    }
+    catch (error) {
+      console.log(error);
+    }
     this.props.navigation.navigate('FirstScreen', {
       textReflection: this.state.textReflection,
-      stage:0
-    });
-  };
+    })
+  }
+
 }
 
 export const styles = StyleSheet.create({

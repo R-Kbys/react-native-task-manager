@@ -22,6 +22,7 @@ export class Example extends React.Component {
             console.log(error);
         }
     }
+    
     getName = async () => {
         try {
             const value = await AsyncStorage.getItem("name");
