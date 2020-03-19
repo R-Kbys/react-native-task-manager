@@ -15,9 +15,9 @@ export class ThirdScreen extends Component {
     <Container style={styles.base}>
       <Content style={styles.main}>
 
-        <TextContainer concept='理解したこと．習得したこと' explanation='今回の学習で成長したことを書きましょう' />
+          <TextContainer textTitle='acquition' concept='理解したこと．習得したこと' explanation='今回の学習で成長したことを書きましょう' />
 
-        <TextContainer concept='課題' explanation='今回の学習で見えた課題やできなかったことを書きましょう' />
+          <TextContainer textTitle='reflection' concept='課題' explanation='今回の学習で見えた課題やできなかったことを書きましょう' />
 
       </Content>
 
@@ -47,9 +47,8 @@ export class ThirdScreen extends Component {
     catch (error) {
       console.log(error);
     }
-    this.props.navigation.navigate('FirstScreen', {
-      textReflection: this.state.textReflection,
-    })
+    // 空のオブジェクトを渡すことで移動先のスクリーンで強制的にComponentをアップデートさせる
+    this.props.navigation.navigate('FirstScreen',{})
   }
 
 }

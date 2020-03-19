@@ -9,7 +9,6 @@ import { FirstScreen } from './FirstScreen';
 import { ModalScreen } from './ModalScreen';
 import { ThirdScreen } from './ThirdScreen';
 
-// const Stack = createStackNavigator();
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
 
@@ -43,21 +42,22 @@ function MainStackScreen() {
       initialRouteName="FirstScreen"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#2089dc',
+          backgroundColor: '#2c82c9', 
         },
-        headerTintColor: '#fff',
+        headerTintColor: 'white',
         headerBackTitle: '戻る',
         gestureEnabled: true
       }}
     >
+      {/* 2089dc */}
       <MainStack.Screen
         name="FirstScreen"
         component={FirstScreen}
         initialParams={{ textDecision: null ,textReflection: null, StartHour: null, startMin: null, stage: 0 }}
         options={{
           title: 'ホーム',
-          headerStyle: { backgroundColor: '#2089dc', },
-          headerTintColor: 'white'
+          // headerStyle: { backgroundColor: '#2089dc', },
+          // headerTintColor: 'white'
         }}
       />
       <MainStack.Screen
@@ -67,7 +67,7 @@ function MainStackScreen() {
         options={{
           title: '短期目標・タスク設定',
           // headerStyle: { backgroundColor: 'white', },
-          headerTintColor: 'white'
+          // headerTintColor: 'white'
         }}
       />
 
@@ -76,8 +76,7 @@ function MainStackScreen() {
         component={ThirdScreen}
         options={{
           title: '振り返り',
-          headerBackTitle: null,
-          // gestureEnabled: false
+          headerBackTitle: "戻る",
           // headerStyle: { backgroundColor: '#2089dc', },
           // headerTintColor: 'white'
         }}

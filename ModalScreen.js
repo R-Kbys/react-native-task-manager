@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, } from 'react-native';
+import { Button } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Container, Header, Title, Content, Left, Right, Body, Icon } from 'native-base';
 
 export function ModalScreen(props) {
 
@@ -26,14 +26,32 @@ export function ModalScreen(props) {
                 display="default"
                 onChange={onChange}
             />
-            <Button onPress={() => props.navigation.navigate('Main', {
-                screen: 'FirstScreen',
-                params: {
-                    stage:2,
-                    startHour: startHour,
-                    startMin: startMin
-                }
-            })} title="タスクを始める" />
+            <View style={{  padding: 6, margin: 6, }}>
+
+                <Button
+                    title="タスクを始める"
+                    onPress={() => props.navigation.navigate('Main', {
+                        screen: 'FirstScreen',
+                        params: {
+                            stage: 2,
+                            startHour: startHour,
+                            startMin: startMin
+                        }
+                    })}
+                    // raised={true}
+                    buttonStyle={{
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 3,
+                        },
+                        shadowOpacity: 0.27,
+                        shadowRadius: 4.65,
+                        elevation: 6,
+                    }}
+                />
+
+            </View>
         </View>
 
     );

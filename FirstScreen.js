@@ -35,7 +35,7 @@ export class FirstScreen extends Component {
         if (this.props.route.params.textDecision != prevProps.route.params.textDecision) {
             // save and 
             this.setState({ stage: 1 });
-            console.log('ComponentDidUpdate() stage1');
+            console.log('ComponentDidUpdate() stage1 Now stage number is 1');
             await AsyncStorage.setItem('stage', '1');
             return;
         }
@@ -43,17 +43,19 @@ export class FirstScreen extends Component {
         // 予定学習時間はpropsで永続しないから，そもそもstage 2をストレージに記録する必要なき
         if (this.props.route.params.startHour != prevProps.route.params.startHour) {
             this.setState({ stage: 2 });
-            console.log('ComponentDidUpdate() stage2');
+            console.log('ComponentDidUpdate() Now stage number is 2');
             // await AsyncStorage.setItem('stage', '2');
             return;
         }
+        // S3 でS1に遷移時に空のroute.paramsを渡すことで強引にS1を更新させることで，以下のコードが動作している
         const value = await AsyncStorage.getItem("stage");
         if (value == "3") {
             this.setState({ stage: 0 });
-            console.log('ComponentDidUpdate() stage3');
+            console.log('ComponentDidUpdate()  Now stage number is 3');
             await AsyncStorage.setItem('stage', '0');
             return;
         }
+        console.log('# S1 ComponentDisUpdate was excuted :stage', value);
 
     }
 
@@ -74,11 +76,17 @@ export class FirstScreen extends Component {
         // this.setState({ isDisabled: isDisabled });
         return (
             <View style={styles.base}>
-                <TextContainer textTitle='aim' concept='最終目標' explanation='最終的な到達点を決めましょう' style={{ flex: 1, padding: 4, margin: 4 }} />
-                <View style={{ flex: 1, padding: 6, margin: 4 }}>
+                <TextContainer 
+                textTitle='aim' 
+                concept='最終的な到達目標' 
+                explanation='最終的な到達点を決めましょう' 
+                placeholder='最終的な目標を決めましょう'
+                style={{ flex: 3, padding: 2, margin: 2 }}
+                 />
+                <View style={{ flex: 3, padding: 2, margin: 2 }}>
 
                     {
-                        textDecision &&
+                       (stage != 0) &&
                         <>
                             <Text>目先の短期目標</Text>
                             <Text>{textDecision}</Text>
@@ -86,40 +94,59 @@ export class FirstScreen extends Component {
                     }
                 </View>
 
-                <View style={{ flex: 1, padding: 6, margin: 6 }}>
+                <View style={{ flex: 2, padding: 6, margin: 6 }}>
                     <Button
                         title='目標を設定する'
+                        raised={true}
                         onPress={this.nextPage}
                         disabled={buttonDisablity1[stage]}
+                        buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle :{}}
                     />
                 </View>
 
                 {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
 
-                <View style={{ flex: 1, padding: 6, margin: 6 }}>
+                <View style={{ flex: 2, padding: 6, margin: 6 }}>
                     <Button
-                        onPress={() => this.props.navigation.navigate('MyModal')}
                         title="集中する時間を設定"
+                        raised={true}
+                        onPress={() => this.props.navigation.navigate('MyModal')}
                         disabled={buttonDisablity2[stage]}
+                        buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+
                     />
                 </View>
 
-                <View style={{ flex: 1, padding: 6, margin: 6, }}>
+                <View style={{ flex: 2, padding: 6, margin: 6, }}>
                     <Button
                         title='勉強終了'
                         onPress={this.doAction2}
+                        raised={true}
                         disabled={!buttonDisablity1[stage]}
+                        buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle :{}}
                     />
                     {
                         isTimeInput &&
                         <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                     }
                 </View>
+                {/* <Button
+                    title='reset'
+                    onPress={this.clearStorage}
+                /> */}
 
             </View>
         );
     }
 
+    clearStorage = async () => {
+        try {
+            await AsyncStorage.clear();
+        }
+        catch (error) {
+            console(error);
+        }
+    }
     nextPage = () => {
         this.props.navigation.navigate('SecondScreen');
     };
@@ -172,7 +199,21 @@ export const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
         flex: 1, padding: 6, margin: 6,
+    },
+    buttonStyle: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 4.65,
+        elevation: 8,
+    },
+    disabledButtonStyle: {
+        
     }
+
 })
 
 

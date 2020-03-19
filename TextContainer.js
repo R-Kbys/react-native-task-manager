@@ -22,24 +22,26 @@ export class TextContainer extends Component {
         try {
             const key = 'text' + this.props.textTitle;
             const textValue = await AsyncStorage.getItem(key);
-            console.log('didMount  textContainer component ',key ,textValue, typeof textValue);
-            this.setState({ textValue: textValue || '●　●　●'.replace(/\s\s/g, '\n')});
+            console.log('# ComponentDidMount()  textContainer:', key,typeof textValue);
+            if (textValue != null) {
+                this.setState({ textValue });
+            }
         }
         catch (error) {
             console.log(error);
         }
     }
-    async componentWillUnmount(){
+    async componentWillUnmount() {
         try {
             const key = 'text' + this.props.textTitle;
             await AsyncStorage.setItem(key, this.state.textValue);
-            console.log('will Unmout textContainer component',key , this.state.textValue);
+            console.log('# ComponentWillUnmout textContainer :', key, this.state.textValue);
         }
         catch (error) {
             console.log(error);
         }
     }
-    
+
     setVisibleModal = () => this.setState({ visible: !this.state.visible })
     doType = textValue => this.setState({ textValue });
     refTextValue = () => this.state.textValue;
@@ -50,16 +52,31 @@ export class TextContainer extends Component {
                 <View style={this.props.style} >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={styles.message}>{this.props.concept} </Text>
-                        <Icon
+                        <Button
+                            icon={
+                                <Icon
+                                    name="edit"
+                                    size={24}
+                                    color="#2089dc"
+                                    style={{ margin: 1, }}
+                                />
+                            }
+                            iconleft
+                            title="編集"
+                            type="outline"
+                            onPress={this.setVisibleModal}
+                            style={styles.editButton}
+                        />
+                        {/* <Icon
                             name="edit"
                             size={28}
                             color="#2089dc"
                             style={{ margin: 4, padding: 4 }}
                             onPress={this.setVisibleModal}
-                        />
+                        /> */}
                     </View>
 
-                    <View style={{padding:2}}> 
+                    <View style={{ padding: 2 }}>
                         <Text style={styles.textValue}>{this.state.textValue}</Text>
                     </View>
                 </View>
@@ -69,53 +86,14 @@ export class TextContainer extends Component {
                     explanation={this.props.explanation}
                     setVisibleModal={this.setVisibleModal}
                     textValue={this.state.textValue}
+                    placeholder={this.props.placeholder}
                     onChangeText={this.doType}
                 />
             </>
 
-            // <View style={{ flex: 1 }}>
-            //     <View flexDirection='row'>
-            //         <Text style={styles.message}>{this.props.concept}</Text>
-            //         <Button style={styles.message} title="編集" onPress={this.setVisibleModal} />
-            //     </View>
-            //     <Text>{this.state.textValue}</Text>
-            //     <UserInputModal
-            //         visible={this.state.visible}
-            //         explanation={this.props.explanation}
-            //         setVisibleModal={this.setVisibleModal}
-            //         textValue={this.state.textValue}
-            //         onChangeText={this.doType}
-            //     />
-            // </View>
         );
     }
 }
-
-// {/* <Button rounded info onPress={this.setVisibleModal}>
-//                         <Text style={styles.message}>編集</Text>
-//                     </Button> */}
-// {/* <Button
-//                         icon={
-//                             <Icon   
-//                                 name="edit"
-//                                 size={18}
-//                                 color="#2089dc"
-//                                 style={{margin:4}}
-//                             />
-//                         }
-//                         iconleft
-//                         title="編集"
-//                         type="outline"
-//                         onPress={this.setVisibleModal}
-//                         style={styles.editButton}
-//                     /> */}
-
-// setVisibleModal = () => {
-//     setModalIsOpen = this.state.ModalIsOpen;
-//     setModalIsOpen[id] = !setModalIsOpen[id];
-//     this.setState({ ModalIsOpen: setModalIsOpen })
-// }
-// setVisibleReflectionModal = () => this.setState({ isVisible: !this.state.isVisible })
 
 
 export const styles = StyleSheet.create({
@@ -127,9 +105,9 @@ export const styles = StyleSheet.create({
         flex: 7
     },
     message: {
-        padding: 8,
+        padding: 4,
         fontSize: 16,
-        textAlign: 'center',
+        // textAlign: 'center',
         // paddingTop:2,
         // paddingBottom:1
         // height: 40,
@@ -141,9 +119,9 @@ export const styles = StyleSheet.create({
         // selectable:true,
     },
     editButton: {
-        margin: 4,
-        padding: 4,
-        fontSize: 14,
+        margin: 2,
+        // padding: 2,
+        fontSize: 4,
     },
 
 })

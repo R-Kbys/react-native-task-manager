@@ -7,7 +7,7 @@ import { Button } from "react-native-elements"
 
 
 export function UserInputModal(props) {
-console.log('UserInputModal was rendered')
+console.log('# UserInputModal was rendered')
   return (
     <Modal
       isVisible={props.visible}
@@ -20,7 +20,8 @@ console.log('UserInputModal was rendered')
     >
       <Container >
         <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
-          <View style={{ alignSelf: 'stretch', height: 40, backgroundColor: '#d2d4d9',}} >
+          <View style={{ alignSelf: 'stretch', height: 40, backgroundColor: '#e6e6e6',}} >
+            {/* d2d4d9 */}
             <Button
               type='clear'
               title="完了"
@@ -34,7 +35,7 @@ console.log('UserInputModal was rendered')
               <Textarea
                 rowSpan={8}
                 bordered
-                placeholder="ここに箇条書きで入力"
+                placeholder={props.placeholder}
                 value={props.textValue}
                 onChangeText={props.onChangeText}
                 returnKeyType='done'
@@ -70,7 +71,6 @@ export const styles = StyleSheet.create({
   inputArea: {
     padding: 10,
     margin: 10,
-    backgroundColor: 'white',
   },
   buttoArea: {
     padding: 10,

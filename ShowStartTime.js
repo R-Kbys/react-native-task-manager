@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text } from 'native-base';
-import { Button } from 'react-native-elements';
 
 export function ShowStartTime(props) {
   const startDate = new Date();
