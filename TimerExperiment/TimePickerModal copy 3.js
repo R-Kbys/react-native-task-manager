@@ -19,7 +19,7 @@ constructor(props){
 
 onChange = (event, selectedDate) => {
   const currentDate = selectedDate || date;
-this.setState(date:currentDate)
+this.setState({date:currentDate})
 };
 // const onChange = (event, selectedDate) => {
 //   const currentDate = selectedDate || date;

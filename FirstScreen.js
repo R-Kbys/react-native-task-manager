@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { ShowStartTime } from './ShowStartTime';
 import { TextContainer } from './TextContainer';
+import { Container, Header, Content, Body, Right } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class FirstScreen extends Component {
     constructor(props) {
@@ -63,79 +65,116 @@ export class FirstScreen extends Component {
         console.log('render s1')
         const buttonDisablity1 = [false, false, true];
         const buttonDisablity2 = [true, false, true];
-        // navigation を通じてrouteを渡していく場合
-        // const stage = this.props.route.params.stage;
-        // AsyncStorageを通じて念の為stageを永続し，基本はstateで直接管理
         const stage = this.state.stage;
         const hour = this.props.route.params.startHour;
         const min = this.props.route.params.startMin;
         const textDecision = this.props.route.params.textDecision;
         const isTimeInput = (stage == 2) ? true : false;
-        // const isDisabled = (textDecision != 'string') ? true : !isTimeInput;
-        // let isDisabled = (textDecision != 'string') && isTimeInput || !isTimeInput;
-        // this.setState({ isDisabled: isDisabled });
+
         return (
-            <View style={styles.base}>
-                <TextContainer 
-                textTitle='aim' 
-                concept='最終的な到達目標' 
-                explanation='最終的な到達点を決めましょう' 
-                placeholder='最終的な目標を決めましょう'
-                style={{ flex: 3, padding: 2, margin: 2 }}
-                 />
-                <View style={{ flex: 3, padding: 2, margin: 2 }}>
+            <Container style={styles.base}>
+                <Header style={styles.header}>
+                    {/* <Body>
+                        <Text></Text>
+                    </Body> */}
+                    <Right>
+                        <Icon
+                            name="question-circle"
+                            size={24}
+                            color="white"
+                            onPress={() => this.props.navigation.goBack()}
+                        // style={{alignSelf:"stretch"}}
+                        />
+                    </Right>
+                </Header>
 
-                    {
-                       (stage != 0) &&
-                        <>
-                            <Text>目先の短期目標</Text>
-                            <Text>{textDecision}</Text>
-                        </>
-                    }
-                </View>
-
-                <View style={{ flex: 2, padding: 6, margin: 6 }}>
-                    <Button
-                        title='目標を設定する'
-                        raised={true}
-                        onPress={this.nextPage}
-                        disabled={buttonDisablity1[stage]}
-                        buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle :{}}
+                {/* <Content> */}
+                <View style={styles.body}>
+                    <TextContainer
+                        textTitle='aim'
+                        concept='最終的な到達目標'
+                        explanation='最終的な到達点を決めましょう'
+                        placeholder='最終的な目標を決めましょう'
+                        style={styles.container}
                     />
-                </View>
+                    <View
+                        style={{ backgroundColor: '#fff', flex: 4, padding: 2, margin: 3 }}
+                        shadowOffset={{ width: 0, height: 4, }}
+                        shadowColor='black'
+                        shadowOpacity={0.30}
+                        shadowRadius={4.65}
+                        elevation={8}>
+                        {
+                            (stage != 0) &&
+                            <>
+                                <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >目先の短期目標</Text>
+                                <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{textDecision}</Text>
+                            </>
+                        }
 
-                {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
+                    </View>
 
-                <View style={{ flex: 2, padding: 6, margin: 6 }}>
-                    <Button
-                        title="集中する時間を設定"
-                        raised={true}
-                        onPress={() => this.props.navigation.navigate('MyModal')}
-                        disabled={buttonDisablity2[stage]}
-                        buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+                    <View style={styles.buttonArea}>
+                        <Button
+                            title='目標を設定する'
+                            raised={true}
+                            onPress={this.nextPage}
+                            disabled={buttonDisablity1[stage]}
+                            buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle : {}}
+                        />
+                    </View>
 
-                    />
-                </View>
+                    {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
 
-                <View style={{ flex: 2, padding: 6, margin: 6, }}>
-                    <Button
-                        title='勉強終了'
-                        onPress={this.doAction2}
-                        raised={true}
-                        disabled={!buttonDisablity1[stage]}
-                        buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle :{}}
-                    />
-                    {
-                        isTimeInput &&
-                        <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
-                    }
-                </View>
-                {/* <Button
+                    <View style={styles.buttonArea}>
+                        <Button
+                            title="集中する時間を設定"
+                            raised={true}
+                            onPress={() => this.props.navigation.navigate('MyModal')}
+                            disabled={buttonDisablity2[stage]}
+                            buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+
+                        />
+                    </View>
+
+                    <View style={styles.buttonArea}>
+
+                        <Button
+                            title='勉強終了'
+                            onPress={this.doAction2}
+                            raised={true}
+                            disabled={!buttonDisablity1[stage]}
+                            buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle : {}}
+                        />
+                        {/* {
+                            isTimeInput &&
+                            <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
+                        } */}
+                    </View>
+
+                    <View style={{
+                        flex: 1.2,
+                        padding: 2,
+                        margin: 2,
+                        justifyContent:'center'
+                    }}>
+                        {
+                            isTimeInput &&
+                            <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
+                        }
+                    </View>
+                    {/* <Button
                     title='reset'
                     onPress={this.clearStorage}
                 /> */}
+                </View>
 
-            </View>
+
+                {/* </Content> */}
+
+
+            </Container>
+
         );
     }
 
@@ -160,10 +199,23 @@ export class FirstScreen extends Component {
     doType = text => this.setState({ text });
 }
 
+// #003bc3　#46ba7a  #2657d2  #26d2a1
+// #1841d6　#d6ad18
+// #2628d2 #31c998
+//#3D5AFE
+// #9bcdff #5474e7 
 export const styles = StyleSheet.create({
-    base: { padding: 10, flex: 1, padding: 6, margin: 6, margin: 6 },
-    body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
-    main: { padding: 10, flex: 8, backgroundColor: 'white', },
+    base: { backgroundColor: '#E3F2FD' },//#e5f3ff
+    body: {
+        padding: 10,
+        flex: 1,
+        padding: 6,
+        margin: 6,
+        margin: 6,
+        // backgroundColor: "#442ee8",  
+    },
+    // main: { padding: 10, flex: 8, backgroundColor: '#442ee8', },
+    header: { backgroundColor: "#5fa9fd" },
     title: {
         padding: 10,
         color: 'black',
@@ -171,36 +223,30 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold'
     },
-    modalbase: {
-        backgroundColor: '#00000099',
-        justifyContent: 'center',
-        fontSize: 32,
-        flex: 1, padding: 6, margin: 6
+    container: {
+        flex: 4,
+        backgroundColor: "#fff",
+        margin: 3, padding: 3
+    },
+    subContainer: {
+        padding: 3,
+        margin: 3,
+
     },
     timeMessage: {
-        padding: 6,
-        justifyContent: 'center',
+        padding: 3,
+        margin: 4,
         textAlign: 'center'
     },
-    message: {
-        padding: 10,
-        color: 'black',
-        fontSize: 20,
-        textAlign: 'center',
-        // height: 40,  
-    },
-    image: {
-        width: 70,
-        height: 70,
-        position: 'absolute',
-        bottom: '80%',
-    },
     buttoArea: {
-        padding: 10,
-        margin: 10,
-        flex: 1, padding: 6, margin: 6,
+        flex: 1.6,
+        padding: 2,
+        margin: 2,
+        alignItems: "center"
+        // flex: 1,
     },
     buttonStyle: {
+        backgroundColor: "#5474e7",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -210,11 +256,69 @@ export const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 8,
     },
-    disabledButtonStyle: {
-        
-    }
 
 })
 
 
 
+// <View style={styles.body}>
+            //     <TextContainer 
+            //     textTitle='aim' 
+            //     concept='最終的な到達目標' 
+            //     explanation='最終的な到達点を決めましょう' 
+            //     placeholder='最終的な目標を決めましょう'
+            //     style={{ flex: 3, padding: 2, margin: 2 }}
+            //      />
+            //     <View style={{ flex: 3, padding: 2, margin: 2 }}>
+
+            //         {
+            //            (stage != 0) &&
+            //             <>
+            //                 <Text>目先の短期目標</Text>
+            //                 <Text>{textDecision}</Text>
+            //             </>
+            //         }
+            //     </View>
+
+            //     <View style={{ flex: 2, padding: 6, margin: 6 }}>
+            //         <Button
+            //             title='目標を設定する'
+            //             raised={true}
+            //             onPress={this.nextPage}
+            //             disabled={buttonDisablity1[stage]}
+            //             buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle :{}}
+            //         />
+            //     </View>
+
+            //     {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
+
+            //     <View style={{ flex: 2, padding: 6, margin: 6 }}>
+            //         <Button
+            //             title="集中する時間を設定"
+            //             raised={true}
+            //             onPress={() => this.props.navigation.navigate('MyModal')}
+            //             disabled={buttonDisablity2[stage]}
+            //             buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+
+            //         />
+            //     </View>
+
+            //     <View style={{ flex: 2, padding: 6, margin: 6, }}>
+            //         <Button
+            //             title='勉強終了'
+            //             onPress={this.doAction2}
+            //             raised={true}
+            //             disabled={!buttonDisablity1[stage]}
+            //             buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle :{}}
+            //         />
+            //         {
+            //             isTimeInput &&
+            //             <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
+            //         }
+            //     </View>
+            //     {/* <Button
+            //         title='reset'
+            //         onPress={this.clearStorage}
+            //     /> */}
+
+            // </View>

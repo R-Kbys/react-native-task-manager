@@ -26,7 +26,7 @@ export class ThirdScreen extends Component {
       </Content> */}
 
         <View style={styles.buttoArea}>
-          <Button title="Go back " onPress={this.nextPage} />
+          <Button title="完了" onPress={this.nextPage} />
       </View>
       </Container>
 

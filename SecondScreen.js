@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content, Header, Body, Left, Right } from 'native-base';
 import { Button } from 'react-native-elements';
 import { TextContainer } from './TextContainer';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DisplayText } from './DisplayText';
 
@@ -18,15 +18,40 @@ export class SecondScreen extends Component {
   render() {
     return (
       <Container style={styles.base}>
+        <Header
+          style={{
+            shadowOffset: { width: 0, height: 4, },
+            shadowColor: '#000',
+            shadowOpacity: 0.30,
+            shadowRadius: 4.65,
+            elevation: 8
+          }}
+
+        >
+          <Left>
+            <Button
+              icon={
+                <Icon
+                  name="angle-left"
+                  // size={24}
+                  color="white"
+                // style={{ margin: 1, }}
+                />
+              }
+              iconleft
+              title="戻る"
+              type="clear"
+              onPress={() => this.props.navigation.goBack()}
+            />
+          </Left>
+          <Body>
+            <Text>短期目標</Text>
+          </Body>
+          <Right />
+        </Header>
         <Content contentContainerStyle={styles.main}>
 
-          {/* <View style={{ flex: 1 }}>
-            <Text>前回の課題</Text>
-            <Text>{typeof test} => "undefinedが表示される"</Text>
-            <Text>{this.state.textValue} => "this.state.textValue"</Text>
-          </View> */}
-
-          <DisplayText />
+          <DisplayText style={styles.subTextContainer} />
 
           <TextContainer
             textTitle='observation'
@@ -107,13 +132,15 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   container: {
-    flex: 1
+    flex: 4,
+    backgroundColor: "#fff",
+    margin: 3,
+    padding: 3
   },
-  modalpanel: {
-    padding: 10,
-    margin: 50,
-    justifyContent: 'center',
-    backgroundColor: 'white',
+  subTextContainer: {
+    padding: 3,
+    margin: 3,
+    // backgroundColor: 'gray',
   },
   message: {
     padding: 10,

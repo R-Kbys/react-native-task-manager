@@ -41,12 +41,13 @@ function MainStackScreen() {
     <MainStack.Navigator
       initialRouteName="FirstScreen"
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#2c82c9', 
-        },
-        headerTintColor: 'white',
-        headerBackTitle: '戻る',
-        gestureEnabled: true
+         headerShown: false ,
+        // headerStyle: {
+        //   backgroundColor: '#2c82c9', 
+        // },
+        // headerTintColor: 'white',
+        // headerBackTitle: '戻る',
+        // gestureEnabled: true
       }}
     >
       {/* 2089dc */}

@@ -22,7 +22,7 @@ export class TextContainer extends Component {
         try {
             const key = 'text' + this.props.textTitle;
             const textValue = await AsyncStorage.getItem(key);
-            console.log('# ComponentDidMount()  textContainer:', key,typeof textValue);
+            console.log('# ComponentDidMount()  textContainer:', key, typeof textValue);
             if (textValue != null) {
                 this.setState({ textValue });
             }
@@ -49,10 +49,18 @@ export class TextContainer extends Component {
     render() {
         return (
             <>
-                <View style={this.props.style} >
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View
+                    style={this.props.style}
+                    // style={{backgroundColor:'#fff',margin:3,padding:3}}
+                    shadowOffset={{ width: 0,height: 4,}}
+                    shadowColor='black'
+                    shadowOpacity={0.30}
+                    shadowRadius={4.65}
+                    elevation={8}>
+
+                    <View style={{flexDirection: 'row',justifyContent: 'space-between',padding:3,margin:2}}>
                         <Text style={styles.message}>{this.props.concept} </Text>
-                        <Button
+                        {/* <Button
                             icon={
                                 <Icon
                                     name="edit"
@@ -66,15 +74,16 @@ export class TextContainer extends Component {
                             type="outline"
                             onPress={this.setVisibleModal}
                             style={styles.editButton}
-                        />
-                        {/* <Icon
-                            name="edit"
-                            size={28}
-                            color="#2089dc"
-                            style={{ margin: 4, padding: 4 }}
-                            onPress={this.setVisibleModal}
                         /> */}
+                        <Icon
+                            name="edit"
+                            size={30}
+                            color="#2089dc"
+                            // style={{ margin: 3, padding: 1}}
+                            onPress={this.setVisibleModal}
+                        />
                     </View>
+                 
 
                     <View style={{ padding: 2 }}>
                         <Text style={styles.textValue}>{this.state.textValue}</Text>
@@ -105,17 +114,18 @@ export const styles = StyleSheet.create({
         flex: 7
     },
     message: {
-        padding: 4,
-        fontSize: 16,
-        // textAlign: 'center',
+        padding: 3,
+        fontSize: 18,
+        textAlign: 'center',
         // paddingTop:2,
         // paddingBottom:1
         // height: 40,
     },
     textValue: {
-        padding: 6,
+        padding: 7,
+        margin:3,
         color: 'black',
-        fontSize: 16,
+        fontSize: 15,
         // selectable:true,
     },
     editButton: {
