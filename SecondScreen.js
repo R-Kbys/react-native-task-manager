@@ -11,9 +11,6 @@ export class SecondScreen extends Component {
   constructor(props) {
     super(props);
     this.refText = React.createRef();
-    this.state = {
-      textValue: "",
-    };
   }
 
   render() {

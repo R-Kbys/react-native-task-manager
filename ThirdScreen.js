@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Container, Content, Text, Header, Left, Right, Body } from 'native-base';
 import { TextContainer } from './TextContainer';
@@ -8,9 +8,6 @@ import { styles } from './styles/Style';
 export class ThirdScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      textReflection: ''
-    };
   }
 
   navigateAndStore = async () => {

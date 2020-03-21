@@ -48,7 +48,6 @@ function MainStackScreen() {
         // gestureEnabled: true
       }}
     >
-      {/* 2089dc */}
       <MainStack.Screen
         name="FirstScreen"
         component={FirstScreen}

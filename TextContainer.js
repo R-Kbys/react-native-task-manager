@@ -5,6 +5,7 @@ import { ModalFrame } from './ModalFrame';
 import { UserInputPage } from './UserInputPage';
 import { InfoPage } from './InfoPage';
 import { styles } from './subStyle';
+
 export class TextContainer extends Component {
     // Modalのvisibleのステートはこの関数コンポーネントの親コンポーネントで管理しているが，
     // このコンポーネントで管理しても良いのではないか，その場合はクラスコンポーネントにする
@@ -12,8 +13,7 @@ export class TextContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            textValue: '',
-            visible: false,
+            textValue:'',
             visiblityUserInputModal: false,
             visiblityInfoModal: false,
         }
