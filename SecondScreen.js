@@ -11,7 +11,7 @@ export class SecondScreen extends Component {
     super(props);
     this.setInput = React.createRef();
     this.state = {
-      textValue: " ",
+      textValue: "",
     };
   }
 
@@ -19,17 +19,16 @@ export class SecondScreen extends Component {
     return (
       <Container style={styles.base}>
         <Header
-          style={{
-            shadowOffset: { width: 0, height: 4, },
-            shadowColor: '#000',
-            shadowOpacity: 0.30,
-            shadowRadius: 4.65,
-            elevation: 8
-          }}
-
+          style={styles.floatingHeader}
         >
           <Left>
             <Button
+              title="キャンセル"
+              type="clear"
+              onPress={this.props.navigation.goBack}
+              titleStyle={{ color: 'white' }}
+            />
+            {/* <Button
               icon={
                 <Icon
                   name="angle-left"
@@ -42,13 +41,22 @@ export class SecondScreen extends Component {
               title="戻る"
               type="clear"
               onPress={() => this.props.navigation.goBack()}
-            />
+            /> */}
           </Left>
           <Body>
-            <Text>短期目標</Text>
+            <Text style={{ color: 'white' }}>短期目標</Text>
           </Body>
-          <Right />
+          <Right>
+            <Icon
+              name="question-circle"
+              size={25}
+              color="white"
+            // onPress={{}}
+            // style={{alignSelf:"stretch"}}
+            />
+          </Right>
         </Header>
+
         <Content contentContainerStyle={styles.main}>
 
           <DisplayText style={styles.subTextContainer} />
@@ -85,13 +93,14 @@ export class SecondScreen extends Component {
               <Icon
                 name="check"
                 size={20}
-                color="white"
+                color="#fff"
               />
             }
             iconleft
             title="目標設定を完了"
             onPress={this.nextPage}
             buttonStyle={styles.buttonStyle}
+            titleStyle={styles.buttonTitle}
           />
         </View>
       </Container>
@@ -119,20 +128,23 @@ export class SecondScreen extends Component {
 // }
 
 export const styles = StyleSheet.create({
-  base: { padding: 6, flex: 1, justifyContent: 'space-between' },
-  body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
+  base: { backgroundColor: '#E3F2FD' },
+  // body: { padding: 10, flex: 0.5, backgroundColor: '#0a55aa', },
   main: {
-    padding: 10, backgroundColor: 'white',
-  },
-  title: {
+    // padding: 10, backgroundColor: 'white',
     padding: 10,
-    color: 'black',
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold'
+  },
+  floatingHeader: {
+    backgroundColor: "#2962FF",
+    // backgroundColor: "#2089dc",
+    shadowOffset: { width: 0, height: 4, },
+    shadowColor: '#000',
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8
   },
   container: {
-    flex: 4,
+    flex: 2,
     backgroundColor: "#fff",
     margin: 3,
     padding: 3
@@ -161,6 +173,7 @@ export const styles = StyleSheet.create({
     // flex: 1,
   },
   buttonStyle: {
+    backgroundColor: "#35a6ec",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -170,6 +183,9 @@ export const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  buttonTitle:{
+    color:'white'
+  }
 
 })
 

@@ -21,7 +21,7 @@ export function DisplayText(props) {
             <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >前回の課題</Text>
             <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{text}</Text>
         </View>
-    ) : null;
+    ) : <Text>悩んだら，ヘルプを見て書き方を参考にしよう</Text>;
 
     return (textConent);
     // ここのreturnは有効

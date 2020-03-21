@@ -7,8 +7,8 @@ export function ShowStartTime(props) {
   const min = props.min;
   return (
   <>
-    <Text style={props.style}>学習開始時刻 {startDate.getHours()}時間:{startDate.getMinutes()}分</Text>
-    <Text style={props.style}>予定学習時間 {hour}時間{min}分</Text>
+    <Text style={props.style}>タスク開始時刻 {startDate.getHours()}時{startDate.getMinutes()}分</Text>
+    <Text style={props.style}>タスク予定時間 {hour}時間{min}分</Text>
   </>
   );
 }

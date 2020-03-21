@@ -52,14 +52,24 @@ export class TextContainer extends Component {
                 <View
                     style={this.props.style}
                     // style={{backgroundColor:'#fff',margin:3,padding:3}}
-                    shadowOffset={{ width: 0,height: 4,}}
+                    shadowOffset={{ width: 0, height: 4, }}
                     shadowColor='black'
                     shadowOpacity={0.30}
                     shadowRadius={4.65}
-                    elevation={8}>
+                    elevation={8}
+                >
 
-                    <View style={{flexDirection: 'row',justifyContent: 'space-between',padding:3,margin:2}}>
-                        <Text style={styles.message}>{this.props.concept} </Text>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            padding: 3,
+                            margin: 2,
+                            // borderBottomColor:'#26C6DA',
+                            // borderWidth:2
+                        }}
+                    >
+                        <Text style={styles.title}>{this.props.concept} </Text>
                         {/* <Button
                             icon={
                                 <Icon
@@ -78,12 +88,11 @@ export class TextContainer extends Component {
                         <Icon
                             name="edit"
                             size={30}
-                            color="#2089dc"
+                            color="#2089dc" //2089dc 00BCD4
                             // style={{ margin: 3, padding: 1}}
                             onPress={this.setVisibleModal}
                         />
                     </View>
-                 
 
                     <View style={{ padding: 2 }}>
                         <Text style={styles.textValue}>{this.state.textValue}</Text>
@@ -113,17 +122,19 @@ export const styles = StyleSheet.create({
         fontSize: 32,
         flex: 7
     },
-    message: {
+    title: {
         padding: 3,
         fontSize: 18,
         textAlign: 'center',
+        // textDecorationLine:'underline',
+        // textDecorationColor:'#26C6DA'
         // paddingTop:2,
         // paddingBottom:1
         // height: 40,
     },
     textValue: {
         padding: 7,
-        margin:3,
+        margin: 3,
         color: 'black',
         fontSize: 15,
         // selectable:true,

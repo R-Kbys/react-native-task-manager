@@ -62,7 +62,7 @@ export class FirstScreen extends Component {
     }
 
     render() {
-        console.log('render s1')
+        console.log('-----render s1-----')
         const buttonDisablity1 = [false, false, true];
         const buttonDisablity2 = [true, false, true];
         const stage = this.state.stage;
@@ -74,15 +74,19 @@ export class FirstScreen extends Component {
         return (
             <Container style={styles.base}>
                 <Header style={styles.header}>
-                    {/* <Body>
-                        <Text></Text>
-                    </Body> */}
                     <Right>
                         <Icon
                             name="question-circle"
-                            size={24}
+                            size={25}
                             color="white"
-                            onPress={() => this.props.navigation.goBack()}
+                        // onPress={{}}
+                        // style={{alignSelf:"stretch"}}
+                        />
+                        <Icon
+                            name="trash-o"
+                            size={25}
+                            color="white"
+                            onPress={this.clearStorage}
                         // style={{alignSelf:"stretch"}}
                         />
                     </Right>
@@ -98,7 +102,7 @@ export class FirstScreen extends Component {
                         style={styles.container}
                     />
                     <View
-                        style={{ backgroundColor: '#fff', flex: 4, padding: 2, margin: 3 }}
+                        style={{ backgroundColor: '#fff', flex: 2, padding: 2, margin: 3 }}
                         shadowOffset={{ width: 0, height: 4, }}
                         shadowColor='black'
                         shadowOpacity={0.30}
@@ -107,66 +111,68 @@ export class FirstScreen extends Component {
                         {
                             (stage != 0) &&
                             <>
-                                <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >目先の短期目標</Text>
+                                <Text style={{ fontSize: 17, padding: 2, margin: 3 }} >目先の短期目標</Text>
                                 <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{textDecision}</Text>
                             </>
                         }
 
                     </View>
 
-                    <View style={styles.buttonArea}>
-                        <Button
-                            title='目標を設定する'
-                            raised={true}
-                            onPress={this.nextPage}
-                            disabled={buttonDisablity1[stage]}
-                            buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle : {}}
-                        />
-                    </View>
+                    <View style={{ flex: 4 }}>
+                        <View style={styles.buttonArea}>
+                            <Button
+                                title='目標を設定する'
+                                // raised={true}
+                                onPress={this.nextPage}
+                                disabled={buttonDisablity1[stage]}
+                                buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle : {}}
+                                titleStyle={styles.buttonTitle}
+                            />
+                        </View>
 
-                    {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
+                        {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
 
-                    <View style={styles.buttonArea}>
-                        <Button
-                            title="集中する時間を設定"
-                            raised={true}
-                            onPress={() => this.props.navigation.navigate('MyModal')}
-                            disabled={buttonDisablity2[stage]}
-                            buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+                        <View style={styles.buttonArea}>
+                            <Button
+                                title="集中する時間を設定"
+                                // raised={true}
+                                onPress={() => this.props.navigation.navigate('MyModal')}
+                                disabled={buttonDisablity2[stage]}
+                                buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
+                                titleStyle={styles.buttonTitle}
 
-                        />
-                    </View>
+                            />
+                        </View>
 
-                    <View style={styles.buttonArea}>
-
-                        <Button
-                            title='勉強終了'
-                            onPress={this.doAction2}
-                            raised={true}
-                            disabled={!buttonDisablity1[stage]}
-                            buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle : {}}
-                        />
-                        {/* {
+                        <View style={styles.buttonArea}>
+                            <Button
+                                title='タスク終了'
+                                onPress={this.doAction2}
+                                // raised={true}
+                                disabled={!buttonDisablity1[stage]}
+                                buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle : {}}
+                                titleStyle={styles.buttonTitle}
+                            />
+                            {/* {
                             isTimeInput &&
                             <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                         } */}
-                    </View>
+                        </View>
 
-                    <View style={{
-                        flex: 1.2,
-                        padding: 2,
-                        margin: 2,
-                        justifyContent:'center'
-                    }}>
+                        {/* <View style={{
+                            flex: 2,
+                            padding: 2,
+                            margin: 2,
+                            // alignContent :"space-around"
+                        }}> */}
                         {
                             isTimeInput &&
                             <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
                         }
+                        {/* </View> */}
+
+
                     </View>
-                    {/* <Button
-                    title='reset'
-                    onPress={this.clearStorage}
-                /> */}
                 </View>
 
 
@@ -205,7 +211,7 @@ export class FirstScreen extends Component {
 //#3D5AFE
 // #9bcdff #5474e7 
 export const styles = StyleSheet.create({
-    base: { backgroundColor: '#E3F2FD' },//#e5f3ff
+    base: { backgroundColor: '#E3F2FD' },//#e5f3ff 
     body: {
         padding: 10,
         flex: 1,
@@ -214,39 +220,33 @@ export const styles = StyleSheet.create({
         margin: 6,
         // backgroundColor: "#442ee8",  
     },
-    // main: { padding: 10, flex: 8, backgroundColor: '#442ee8', },
-    header: { backgroundColor: "#5fa9fd" },
-    title: {
-        padding: 10,
-        color: 'black',
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    container: {
-        flex: 4,
-        backgroundColor: "#fff",
-        margin: 3, padding: 3
-    },
-    subContainer: {
-        padding: 3,
-        margin: 3,
+    main: { padding: 10 },
+    header: { backgroundColor: "#80DEEA" }, //#4ba5ff ,2089dc
 
+    container: {
+        flex: 2,
+        backgroundColor: "#fff",
+        margin: 3,
+        padding: 3
     },
+    // subContainer: {
+    //     padding: 3,
+    //     margin: 3,
+    // },
     timeMessage: {
         padding: 3,
         margin: 4,
         textAlign: 'center'
     },
-    buttoArea: {
-        flex: 1.6,
+    buttonArea: {
+        flex: 3,
         padding: 2,
         margin: 2,
-        alignItems: "center"
+        // alignItems: "center"
         // flex: 1,
     },
     buttonStyle: {
-        backgroundColor: "#5474e7",
+        backgroundColor: "#35a6ec",// #54dae9 #55cbd9 #39cbd1,03DAC5,03D，2089dc
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -256,6 +256,9 @@ export const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 8,
     },
+    buttonTitle: {
+        color: 'white'
+    }
 
 })
 
