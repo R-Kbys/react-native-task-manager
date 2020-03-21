@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-// import { Modal, TextInput, Text, View, Button, StyleSheet } from 'react-native';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
-import { Button } from 'react-native-elements';
-import { Container, Header, Content, Text } from 'native-base';
-// import { Container, Header, Content, Text, Button } from 'native-base';
-import { UserInputModal } from './UserInputModal';
+import { StyleSheet, View, AsyncStorage, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { ModalFrame } from './ModalFrame';
+import { UserInputPage } from './UserInputPage';
+import { InfoPage } from './InfoPage';
+import { styles } from './subStyle';
 export class TextContainer extends Component {
     // Modalのvisibleのステートはこの関数コンポーネントの親コンポーネントで管理しているが，
     // このコンポーネントで管理しても良いのではないか，その場合はクラスコンポーネントにする
@@ -16,6 +14,8 @@ export class TextContainer extends Component {
         this.state = {
             textValue: '',
             visible: false,
+            visiblityUserInputModal: false,
+            visiblityInfoModal: false,
         }
     };
     async componentDidMount() {
@@ -31,27 +31,41 @@ export class TextContainer extends Component {
             console.log(error);
         }
     }
-    async componentWillUnmount() {
-        try {
-            const key = 'text' + this.props.textTitle;
-            await AsyncStorage.setItem(key, this.state.textValue);
-            console.log('# ComponentWillUnmout textContainer :', key, this.state.textValue);
+    // async componentWillUnmount() {
+    //     try {
+    //         const key = 'text' + this.props.textTitle;
+    //         await AsyncStorage.setItem(key, this.state.textValue);
+    //         console.log('# ComponentWillUnmout textContainer :', key, this.state.textValue);
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    setVisiblityUserInputModal = async () => {
+        if (this.state.visiblityUserInputModal == true) {
+            try {
+                const key = 'text' + this.props.textTitle;
+                await AsyncStorage.setItem(key, this.state.textValue);
+                console.log('# textContainer :', key, this.state.textValue);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
-        catch (error) {
-            console.log(error);
-        }
+        this.setState(state => ({ visiblityUserInputModal: !state.visiblityUserInputModal }));
     }
 
-    setVisibleModal = () => this.setState({ visible: !this.state.visible })
+    setVisiblityInfoModal = () => this.setState({ visiblityInfoModal: !this.state.visiblityInfoModal })
     doType = textValue => this.setState({ textValue });
     refTextValue = () => this.state.textValue;
 
     render() {
+        console.log('-----TextContainer---')
         return (
             <>
                 <View
                     style={this.props.style}
-                    // style={{backgroundColor:'#fff',margin:3,padding:3}}
                     shadowOffset={{ width: 0, height: 4, }}
                     shadowColor='black'
                     shadowOpacity={0.30}
@@ -65,33 +79,26 @@ export class TextContainer extends Component {
                             justifyContent: 'space-between',
                             padding: 3,
                             margin: 2,
-                            // borderBottomColor:'#26C6DA',
-                            // borderWidth:2
                         }}
                     >
                         <Text style={styles.title}>{this.props.concept} </Text>
-                        {/* <Button
-                            icon={
-                                <Icon
-                                    name="edit"
-                                    size={24}
-                                    color="#2089dc"
-                                    style={{ margin: 1, }}
-                                />
-                            }
-                            iconleft
-                            title="編集"
-                            type="outline"
-                            onPress={this.setVisibleModal}
-                            style={styles.editButton}
-                        /> */}
-                        <Icon
-                            name="edit"
-                            size={30}
-                            color="#2089dc" //2089dc 00BCD4
-                            // style={{ margin: 3, padding: 1}}
-                            onPress={this.setVisibleModal}
-                        />
+                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+
+                            <Icon
+                                name="info-circle"
+                                size={30}
+                                color="#00BCD4" //2089dc 00BCD4 #bf152c #b00020
+                                style={{ margin: 3, padding: 2, opacity: 0.8 }}
+                                onPress={this.setVisiblityInfoModal}
+                            />
+                            <Icon
+                                name="edit"
+                                size={30}
+                                color="#2962FF" // skyblue 2089dc  26C6DA cyn 00BCD4
+                                style={{ margin: 3, padding: 2 }}
+                                onPress={this.setVisiblityUserInputModal}
+                            />
+                        </View>
                     </View>
 
                     <View style={{ padding: 2 }}>
@@ -99,50 +106,46 @@ export class TextContainer extends Component {
                     </View>
                 </View>
 
-                <UserInputModal
-                    visible={this.state.visible}
-                    explanation={this.props.explanation}
-                    setVisibleModal={this.setVisibleModal}
-                    textValue={this.state.textValue}
-                    placeholder={this.props.placeholder}
-                    onChangeText={this.doType}
+                <ModalFrame
+                    visible={this.state.visiblityUserInputModal}
+                    setVisiblityModal={this.setVisiblityUserInputModal}
+                    render={() => (
+                        <UserInputPage
+                            onChangeText={this.doType}
+                            explanation={this.props.explanation}
+                            textValue={this.state.textValue}
+                        />)
+                    }
+                />
+                <ModalFrame
+                    visible={this.state.visiblityInfoModal}
+                    setVisiblityModal={this.setVisiblityInfoModal}
+                    render={() => (
+                        <InfoPage
+                            concept={this.props.concept}
+                            helpText={this.props.helpText}
+                            exampleText={this.props.exampleText}
+                        />)
+                    }
                 />
             </>
 
         );
     }
 }
+// {/* <Button
+// icon={
+//     <Icon
+//         name="edit"
+//         size={24}
+//         color="#2089dc"
+//         style={{ margin: 1, }}
+//     />
+// }
+// iconleft
+// title="編集"
+// type="outline"
+// onPress={this.setVisiblityModal}
+// style={styles.editButton}
+//  /> */}
 
-
-export const styles = StyleSheet.create({
-
-    modalbase: {
-        backgroundColor: '#00000099',
-        justifyContent: 'center',
-        fontSize: 32,
-        flex: 7
-    },
-    title: {
-        padding: 3,
-        fontSize: 18,
-        textAlign: 'center',
-        // textDecorationLine:'underline',
-        // textDecorationColor:'#26C6DA'
-        // paddingTop:2,
-        // paddingBottom:1
-        // height: 40,
-    },
-    textValue: {
-        padding: 7,
-        margin: 3,
-        color: 'black',
-        fontSize: 15,
-        // selectable:true,
-    },
-    editButton: {
-        margin: 2,
-        // padding: 2,
-        fontSize: 4,
-    },
-
-})

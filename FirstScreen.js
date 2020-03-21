@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
+import { Container, Header, Right } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { ShowStartTime } from './ShowStartTime';
 import { TextContainer } from './TextContainer';
-import { Container, Header, Content, Body, Right } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { styles } from './styles/Style';
 
 export class FirstScreen extends Component {
     constructor(props) {
         super(props);
+        this.promptInput = React.createRef();
         this.state = {
             isDisabled: false,
             stage: 0
@@ -73,7 +75,7 @@ export class FirstScreen extends Component {
 
         return (
             <Container style={styles.base}>
-                <Header style={styles.header}>
+                <Header style={styles.floatingHeader}>
                     <Right>
                         <Icon
                             name="question-circle"
@@ -98,8 +100,14 @@ export class FirstScreen extends Component {
                         textTitle='aim'
                         concept='最終的な到達目標'
                         explanation='最終的な到達点を決めましょう'
-                        placeholder='最終的な目標を決めましょう'
+                        helpText={
+                            '「最終的な目標」で決めた長期的な目標と比較して，現在の自分は何ができて，',
+                            '何が足らないのかを知ることはとても大切です．\nここで自分の力量，現状を理解することは後のこれからどのような行動とるかを決める際に役に立ちます'
+                        }
+                        exampleText={'例：レポートの課題や宿題の場合　\n●レポートに必要なデータが不足しているため　\n●また集めたデータが整理されていないため，考察が滞った',
+                            '例： \n'}
                         style={styles.container}
+                        ref={this.promptInput}
                     />
                     <View
                         style={{ backgroundColor: '#fff', flex: 2, padding: 2, margin: 3 }}
@@ -123,7 +131,7 @@ export class FirstScreen extends Component {
                             <Button
                                 title='目標を設定する'
                                 // raised={true}
-                                onPress={this.nextPage}
+                                onPress={this.navigateToSecond}
                                 disabled={buttonDisablity1[stage]}
                                 buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle : {}}
                                 titleStyle={styles.buttonTitle}
@@ -147,7 +155,7 @@ export class FirstScreen extends Component {
                         <View style={styles.buttonArea}>
                             <Button
                                 title='タスク終了'
-                                onPress={this.doAction2}
+                                onPress={this.navigateToThird}
                                 // raised={true}
                                 disabled={!buttonDisablity1[stage]}
                                 buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle : {}}
@@ -174,11 +182,7 @@ export class FirstScreen extends Component {
 
                     </View>
                 </View>
-
-
                 {/* </Content> */}
-
-
             </Container>
 
         );
@@ -192,13 +196,13 @@ export class FirstScreen extends Component {
             console(error);
         }
     }
-    nextPage = () => {
+    navigateToSecond = () => {
         this.props.navigation.navigate('SecondScreen');
     };
-    doAction2 = () => {
+    navigateToThird = () => {
         this.props.navigation.navigate('ThirdScreen');
     };
-    // doAction2 = () => {
+    // navigateToThird = () => {
     //     this.setState({stage:0});
     //     this.props.navigation.navigate('ThirdScreen');
     // };
@@ -209,60 +213,7 @@ export class FirstScreen extends Component {
 // #1841d6　#d6ad18
 // #2628d2 #31c998
 //#3D5AFE
-// #9bcdff #5474e7 
-export const styles = StyleSheet.create({
-    base: { backgroundColor: '#E3F2FD' },//#e5f3ff 
-    body: {
-        padding: 10,
-        flex: 1,
-        padding: 6,
-        margin: 6,
-        margin: 6,
-        // backgroundColor: "#442ee8",  
-    },
-    main: { padding: 10 },
-    header: { backgroundColor: "#80DEEA" }, //#4ba5ff ,2089dc
-
-    container: {
-        flex: 2,
-        backgroundColor: "#fff",
-        margin: 3,
-        padding: 3
-    },
-    // subContainer: {
-    //     padding: 3,
-    //     margin: 3,
-    // },
-    timeMessage: {
-        padding: 3,
-        margin: 4,
-        textAlign: 'center'
-    },
-    buttonArea: {
-        flex: 3,
-        padding: 2,
-        margin: 2,
-        // alignItems: "center"
-        // flex: 1,
-    },
-    buttonStyle: {
-        backgroundColor: "#35a6ec",// #54dae9 #55cbd9 #39cbd1,03DAC5,03D，2089dc
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.30,
-        shadowRadius: 4.65,
-        elevation: 8,
-    },
-    buttonTitle: {
-        color: 'white'
-    }
-
-})
-
-
+// #9bcdff #5474e7
 
 // <View style={styles.body}>
             //     <TextContainer 
@@ -287,7 +238,7 @@ export const styles = StyleSheet.create({
             //         <Button
             //             title='目標を設定する'
             //             raised={true}
-            //             onPress={this.nextPage}
+            //             onPress={this.navigateToSecond}
             //             disabled={buttonDisablity1[stage]}
             //             buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle :{}}
             //         />
@@ -309,7 +260,7 @@ export const styles = StyleSheet.create({
             //     <View style={{ flex: 2, padding: 6, margin: 6, }}>
             //         <Button
             //             title='勉強終了'
-            //             onPress={this.doAction2}
+            //             onPress={this.navigateToThird}
             //             raised={true}
             //             disabled={!buttonDisablity1[stage]}
             //             buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle :{}}

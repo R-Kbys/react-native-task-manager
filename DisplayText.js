@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, AsyncStorage, Text } from 'react-native';
-import { styles } from './UserInputModal';
 
 export function DisplayText(props) {
     const [text, setText] = useState(null);
@@ -21,18 +20,7 @@ export function DisplayText(props) {
             <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >前回の課題</Text>
             <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{text}</Text>
         </View>
-    ) : <Text>悩んだら，ヘルプを見て書き方を参考にしよう</Text>;
+    ) : <Text>悩んだら，インフォを見て書き方を参考にしよう</Text>;
 
     return (textConent);
-    // ここのreturnは有効
-
-    // fetchText().then(result => {
-    //   console.log("showText method", result);
-    //   return (<>
-    //     <View style={{ flex: 1 }}>
-    //       <Text>前回の課題</Text>
-    //       <Text>{result}</Text>
-    //     </View>
-    //   </>);
-    // })
 }

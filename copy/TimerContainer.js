@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { TimePickerModal } from './TimePickerModal';
 import { Container, Header, Content } from 'native-base';
 import { Button } from 'react-native-elements';
-import { ShowStartTime } from './ShowStartTime';
+import { ShowStartTime } from '../ShowStartTime';
 
 export const TimerContainer = (props) => {
   const refDate = useRef();
