@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage, Text } from 'react-native';
+import { View, AsyncStorage, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ModalFrame } from './ModalFrame';
 import { UserInputPage } from './UserInputPage';
 import { InfoPage } from './InfoPage';
-import { styles } from './subStyle';
+import { styles } from './styles/subStyle';
 
 export class TextContainer extends Component {
-    // Modalのvisibleのステートはこの関数コンポーネントの親コンポーネントで管理しているが，
-    // このコンポーネントで管理しても良いのではないか，その場合はクラスコンポーネントにする
-    // どちらが良いのか．そっちの方がいい説ある
     constructor(props) {
         super(props);
         this.state = {
@@ -88,9 +85,9 @@ export class TextContainer extends Component {
                                 name="info-circle"
                                 size={30}
                                 color="#00BCD4" //2089dc 00BCD4 #bf152c #b00020
-                                style={{ margin: 3, padding: 2, opacity: 0.8 }}
+                                style={{ margin: 3, padding: 2, }}
                                 onPress={this.setVisiblityInfoModal}
-                            />
+                            /> 
                             <Icon
                                 name="edit"
                                 size={30}

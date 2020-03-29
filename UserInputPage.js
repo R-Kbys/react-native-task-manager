@@ -1,6 +1,6 @@
 import React from 'react';
 import { Content, Label, Form, Textarea } from 'native-base';
-import {styles } from "./styles/subStylfe";
+import {styles } from "./styles/subStyle";
 
 export function UserInputPage(props) {
 
@@ -9,9 +9,6 @@ export function UserInputPage(props) {
         <Content contentContainerStyle={styles.inputArea} >
             <Label style={styles.title}>{props.explanation}</Label>
             <Form style={styles.message}>
-        {/* <Content contentContainerStyle={styles.inputArea}>
-            <Label style={styles.title}>{props.explanation}</Label>
-            <Form style={styles.message}> */}
                 <Textarea
                     bordered
                     rowSpan={8}

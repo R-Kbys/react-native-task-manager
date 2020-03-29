@@ -17,10 +17,13 @@ export function DisplayText(props) {
 
     const textConent = !!text ? (
         <View style={props.style}>
-            <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >前回の課題</Text>
+            <Text style={{ fontSize: 17, padding: 2, margin: 2 }} >前回見えた課題</Text>
             <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{text}</Text>
         </View>
-    ) : <Text>悩んだら，インフォを見て書き方を参考にしよう</Text>;
-
+    ) :
+        <>
+            <Text>iマークを押して書き方の参考を見る</Text>;
+            <Text>エンピツマークを押して追記・編集を行う</Text>;
+        </>
     return (textConent);
 }

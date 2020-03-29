@@ -101,11 +101,9 @@ export class FirstScreen extends Component {
                         concept='最終的な到達目標'
                         explanation='最終的な到達点を決めましょう'
                         helpText={
-                            '「最終的な目標」で決めた長期的な目標と比較して，現在の自分は何ができて，',
-                            '何が足らないのかを知ることはとても大切です．\nここで自分の力量，現状を理解することは後のこれからどのような行動とるかを決める際に役に立ちます'
+                            '最終的に到達したい目標を掲げましょう．目標が長期になる場合は最終的な目標とは別に，チェックポイントや通過点として中期の目標をいくつか立てるといいかもしれません．\n\n'
                         }
-                        exampleText={'例：レポートの課題や宿題の場合　\n●レポートに必要なデータが不足しているため　\n●また集めたデータが整理されていないため，考察が滞った',
-                            '例： \n'}
+                        exampleText={'例1：レポート課題や宿題を提出の一週間前に終わらせる\n\n例2：初めてカレンダーアプリを作る\n●中期目標1：公式ドキュメントを読見ながら，チュートリアルを行い，簡易のアプリを作る\n●中期目標2：カレンダーを表示させるコードを理解する\n●中期目標3：カレンダーを表示させるコードを中期目標1で作ったアプリに組み込んでみる\n'}
                         style={styles.container}
                         ref={this.promptInput}
                     />
@@ -119,7 +117,7 @@ export class FirstScreen extends Component {
                         {
                             (stage != 0) &&
                             <>
-                                <Text style={{ fontSize: 17, padding: 2, margin: 3 }} >目先の短期目標</Text>
+                                <Text style={{ fontSize: 17, padding: 2, margin: 3 }} >今回取り組むべきこと</Text>
                                 <Text style={{ fontSize: 15, padding: 3, margin: 2 }}>{textDecision}</Text>
                             </>
                         }
@@ -202,10 +200,6 @@ export class FirstScreen extends Component {
     navigateToThird = () => {
         this.props.navigation.navigate('ThirdScreen');
     };
-    // navigateToThird = () => {
-    //     this.setState({stage:0});
-    //     this.props.navigation.navigate('ThirdScreen');
-    // };
     doType = text => this.setState({ text });
 }
 
@@ -214,65 +208,3 @@ export class FirstScreen extends Component {
 // #2628d2 #31c998
 //#3D5AFE
 // #9bcdff #5474e7
-
-// <View style={styles.body}>
-            //     <TextContainer 
-            //     textTitle='aim' 
-            //     concept='最終的な到達目標' 
-            //     explanation='最終的な到達点を決めましょう' 
-            //     placeholder='最終的な目標を決めましょう'
-            //     style={{ flex: 3, padding: 2, margin: 2 }}
-            //      />
-            //     <View style={{ flex: 3, padding: 2, margin: 2 }}>
-
-            //         {
-            //            (stage != 0) &&
-            //             <>
-            //                 <Text>目先の短期目標</Text>
-            //                 <Text>{textDecision}</Text>
-            //             </>
-            //         }
-            //     </View>
-
-            //     <View style={{ flex: 2, padding: 6, margin: 6 }}>
-            //         <Button
-            //             title='目標を設定する'
-            //             raised={true}
-            //             onPress={this.navigateToSecond}
-            //             disabled={buttonDisablity1[stage]}
-            //             buttonStyle={!buttonDisablity1[stage] ? styles.buttonStyle :{}}
-            //         />
-            //     </View>
-
-            //     {/* 2順目の時，1順目と学習時間を変更しないと，「タスクを開始j」を押しても勉強終了にならない */}
-
-            //     <View style={{ flex: 2, padding: 6, margin: 6 }}>
-            //         <Button
-            //             title="集中する時間を設定"
-            //             raised={true}
-            //             onPress={() => this.props.navigation.navigate('MyModal')}
-            //             disabled={buttonDisablity2[stage]}
-            //             buttonStyle={!buttonDisablity2[stage] ? styles.buttonStyle : {}}
-
-            //         />
-            //     </View>
-
-            //     <View style={{ flex: 2, padding: 6, margin: 6, }}>
-            //         <Button
-            //             title='勉強終了'
-            //             onPress={this.navigateToThird}
-            //             raised={true}
-            //             disabled={!buttonDisablity1[stage]}
-            //             buttonStyle={buttonDisablity1[stage] ? styles.buttonStyle :{}}
-            //         />
-            //         {
-            //             isTimeInput &&
-            //             <ShowStartTime hour={hour} min={min} style={styles.timeMessage} />
-            //         }
-            //     </View>
-            //     {/* <Button
-            //         title='reset'
-            //         onPress={this.clearStorage}
-            //     /> */}
-
-            // </View>
