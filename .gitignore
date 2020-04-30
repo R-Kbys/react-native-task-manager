@@ -9,6 +9,15 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+./modalExample
+./renderPropsTest
+./StorageExample
+./TimerExperiment
+./screens
+./copy
+./constants
+./appy copy
+.eslintrc.json
 
 # macOS
 .DS_Store

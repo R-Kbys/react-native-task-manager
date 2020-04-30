@@ -22,8 +22,8 @@ export function DisplayText(props) {
         </View>
     ) :
         <>
-            <Text>iマークを押して書き方の参考を見る</Text>;
-            <Text>エンピツマークを押して追記・編集を行う</Text>;
+            <Text>iマークを押して書き方の参考を見る</Text>
+            <Text>エンピツマークを押して追記・編集を行う</Text>
         </>
     return (textConent);
 }

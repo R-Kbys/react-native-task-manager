@@ -44,7 +44,6 @@ export class SecondScreen extends Component {
         <Content contentContainerStyle={styles.main}>
 
           <DisplayText style={styles.subTextContainer} />
-
           <TextContainer
             textTitle='observation'
             concept='現在の状況の観察'
