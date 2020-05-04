@@ -16,8 +16,10 @@ web-report/
 ./screens
 ./copy
 ./constants
-./appy copy
+./appycopy
 .eslintrc.json
+./appjscopy
+./screens
 
 # macOS
 .DS_Store
