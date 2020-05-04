@@ -5,9 +5,8 @@ EXPO  sdkVersion: "36.0.0"
 
 ## 概要  
 　長期的な学習目標，達成したい目標を定め，そこからユーザーが為すべき短期的なタスクや目標，ノルマを明らかにすることを補助する．またその継続的な管理を手助けするアプリ 
-  
-<img src="images/139F9121-FD65-49EC-BBB5-3C010657A158.jpeg" height="40%" width="40%">
-<img src="images/IMG_0093.PNG" height="40%" width="40%">
+
+<img src="images/139F9121-FD65-49EC-BBB5-3C010657A158.jpeg" height="30%" width="30%">　　<img src="images/IMG_0093.PNG" height="30%" width="30%">
 
 ## このアプリの仕様の流れ  
  1. 長期的な目標を定める  
