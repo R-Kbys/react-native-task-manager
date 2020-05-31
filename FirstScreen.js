@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, Alert, Modal } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Container, Header, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ShowStartTime } from './ShowStartTime';
 import { TextContainer } from './TextContainer';
 import { styles } from './styles/Style';
+// import Modal from "react-native-modal";
+
 
 export class FirstScreen extends Component {
     constructor(props) {
         super(props);
         this.promptInput = React.createRef();
         this.state = {
+            isVisible: false,
             isDisabled: false,
             stage: 0
         }
@@ -77,18 +80,18 @@ export class FirstScreen extends Component {
             <Container style={styles.base}>
                 <Header style={styles.floatingHeader}>
                     <Right>
-                        <Icon
+                        {/* <Icon
                             name="question-circle"
                             size={25}
                             color="white"
-                        // onPress={{}}
-                        // style={{alignSelf:"stretch"}}
-                        />
+                            onPress={{}}
+                            style={{alignSelf:"stretch"}}
+                        /> */}
                         <Icon
                             name="trash-o"
                             size={25}
                             color="white"
-                            onPress={this.clearStorage}
+                            onPress={this.createTwoButtonAlert}
                         // style={{alignSelf:"stretch"}}
                         />
                     </Right>
@@ -189,6 +192,8 @@ export class FirstScreen extends Component {
     clearStorage = async () => {
         try {
             await AsyncStorage.clear();
+            this.setVisiblityModal();
+            Alert.alert('消去しました。');
         }
         catch (error) {
             console(error);
@@ -201,8 +206,28 @@ export class FirstScreen extends Component {
         this.props.navigation.navigate('ThirdScreen');
     };
     doType = text => this.setState({ text });
-}
 
+    setVisiblityModal = () => {
+        this.setState((state) => {
+            return { isVisible: !this.state.isVisible };
+        });
+    }
+    createTwoButtonAlert = () => {
+        Alert.alert(
+            "Alert Title",
+            "My Alert Msg",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
+        )
+    };
+}
 // #003bc3　#46ba7a  #2657d2  #26d2a1
 // #1841d6　#d6ad18
 // #2628d2 #31c998
